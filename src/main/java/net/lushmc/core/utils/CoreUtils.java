@@ -10,7 +10,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
+
 import net.lushmc.core.LushPlugin;
+import net.lushmc.core.utils.announcements.Announcement;
+import net.lushmc.core.utils.announcements.AnnouncementUtils;
+import net.lushmc.core.utils.runnables.Heartbeat;
 import net.md_5.bungee.api.ChatColor;
 
 public class CoreUtils {
@@ -21,6 +26,11 @@ public class CoreUtils {
 	public static void init(LushPlugin main) {
 		plugin = main;
 		addPrefix("admin", "&c&lAdmin &8> &7");
+
+		AnnouncementUtils.announcements.put("test", new Announcement("test")
+				.setAnnoucement("This is a test {\"test\":{\"test1\":\"rawr\"}}").setEnabled(true));
+
+		Bukkit.getScheduler().runTaskLater(getPlugin(), new Heartbeat(), 1);
 	}
 
 	public static LushPlugin getPlugin() {

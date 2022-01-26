@@ -30,7 +30,7 @@ public class AdminCommands implements CommandExecutor {
 				return true;
 			}
 			if (args[0].equalsIgnoreCase("update")) {
-				String plugin = args[0];
+				String plugin = "LushCore";
 				String filename = plugin + ".jar";
 				String url = "https://jenkins.mysticcloud.net/job/" + plugin
 						+ "/job/master/lastSuccessfulBuild/artifact/target/" + filename;
