@@ -31,21 +31,22 @@ public class Announcement {
 		return this;
 	}
 
-	public Announcement setAnnoucement(String... strings) {
+	private Announcement setAnnoucementString(String... strings) {
 		List<String> l = new ArrayList<>();
 		for (String s : strings)
 			l.add(s);
 		return setAnnoucement(l);
 	}
 
-	public Announcement setAnnoucement(List<String> annoucement) {
+	private Announcement setAnnoucementList(List<String> annoucement) {
 		this.annoucement = annoucement;
 		return this;
 	}
 
 	@SuppressWarnings("unchecked")
 	public Announcement setAnnoucement(Object strings) {
-		return strings instanceof List ? setAnnoucement((List<String>) strings) : setAnnoucement(strings);
+		return strings instanceof List ? setAnnoucementList((List<String>) strings)
+				: setAnnoucementString(strings + "");
 	}
 
 	public Announcement announce(Player player) {
