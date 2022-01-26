@@ -52,8 +52,8 @@ public class Announcement {
 	public Announcement announce(Player player) {
 		for (String line : annoucement) {
 			Bukkit.broadcastMessage(line);
-			if (line.contains("{") && line.contains("}")) {
-				String jsons = "{" + line.split("{")[0].split("}")[line.split("{")[0].split("}").length];
+			if (line.contains("[") && line.contains("]")) {
+				String jsons = "[" + line.split("[")[0].split("]")[line.split("[")[0].split("]").length];
 				Bukkit.broadcastMessage(jsons);
 			}
 		}
