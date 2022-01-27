@@ -6,6 +6,7 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.json2.JSONObject;
 
 public class Announcement {
 
@@ -52,9 +53,10 @@ public class Announcement {
 	public Announcement announce(Player player) {
 		for (String line : annoucement) {
 			Bukkit.broadcastMessage(line);
-			if (line.contains("[") && line.contains("]")) {
-				String jsons = "[" + line.split("[")[0].split("]")[line.split("[")[0].split("]").length];
-				Bukkit.broadcastMessage(jsons);
+			if (line.contains("{") && line.contains("}")) {
+				JSONObject json = new JSONObject(line);
+//				String jsons = "[" + line.split("[")[0].split("]")[line.split("[")[0].split("]").length];
+//				Bukkit.broadcastMessage(jsons);
 			}
 		}
 		return this;
