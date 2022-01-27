@@ -1,11 +1,13 @@
 package net.lushmc.core.utils.announcements;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.json2.JSONObject;
 
 public class Announcement {
 
@@ -53,8 +55,29 @@ public class Announcement {
 		for (String line : annoucement) {
 			Bukkit.broadcastMessage(line);
 			if (line.contains("{") && line.contains("}")) {
-				String jsons = line.substring(line.indexOf("{"), line.lastIndexOf("}"));
-				Bukkit.broadcastMessage(jsons);
+				int open = 0;
+				int close = 0;
+				LinkedList<JSONObject> jsono = new LinkedList<>();
+				String s = "";
+				for (int c = 0; c != line.length(); c++) {
+					if (line.substring(c, c + 1).equals("{"))
+						open = open + 1;
+					if (open >= 1) {
+						if (line.substring(c, c + 1).equals("}"))
+							close = close + 1;
+						s = s + line.substring(c, c + 1);
+						if (open == close) {
+							jsono.add(new JSONObject("{" + s));
+							s = "";
+						}
+
+					}
+				}
+//				String jsons = line.substring(line.indexOf("{"), line.lastIndexOf("}")+1);
+				Bukkit.broadcastMessage("JSON Size: " + jsono.size());
+				for (JSONObject json : jsono) {
+					Bukkit.broadcastMessage(json.toString());
+				}
 //				String jsons = "[" + line.split("[")[0].split("]")[line.split("[")[0].split("]").length];
 //				Bukkit.broadcastMessage(jsons);
 			}
