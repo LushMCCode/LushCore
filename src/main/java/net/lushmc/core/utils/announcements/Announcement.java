@@ -66,6 +66,7 @@ public class Announcement {
 						if (line.substring(c, c + 1).equals("}"))
 							close = close + 1;
 						s = s + line.substring(c, c + 1);
+						Bukkit.broadcastMessage(s);
 						if (open == close) {
 							jsono.add(new JSONObject("{" + s));
 							s = "";
