@@ -62,7 +62,6 @@ public class Announcement {
 	public Announcement announce(Player player) {
 		for (String line : announcement) {
 			ComponentBuilder builder = new ComponentBuilder();
-			Bukkit.broadcastMessage("TEST: " + line);
 			if (line.contains("{") && line.contains("}")) {
 				int open = 0;
 				int close = 0;
@@ -75,7 +74,6 @@ public class Announcement {
 						if (line.substring(c, c + 1).equals("}"))
 							close = close + 1;
 						s = s + line.substring(c, c + 1);
-						Bukkit.broadcastMessage(s);
 						if (open == close) {
 							jsono.add(s);
 							s = "";
@@ -84,13 +82,11 @@ public class Announcement {
 						}
 					}
 				}
-				int i = 0;
+
 				for (String j : jsono) {
 					line = line.replace(j, "%-SPLIT-%");
-					Bukkit.broadcastMessage("TEST2: " + line.replace(j, "%-SPLIT-%"));
-					i = i + 1;
 				}
-				i = 0;
+				int i = 0;
 				for (String a : line.split("%-SPLIT-%")) {
 					builder.append(CoreUtils.colorize(a));
 					if (line.endsWith(a))
