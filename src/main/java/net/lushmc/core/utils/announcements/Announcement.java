@@ -9,6 +9,10 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.json2.JSONObject;
 
+import net.lushmc.core.utils.CoreUtils;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.hover.content.Text;
+
 public class Announcement {
 
 	String name;
@@ -89,8 +93,15 @@ public class Announcement {
 
 					i = i + 1;
 				}
-				for (String a : line.split("[0-9]")) {
-					Bukkit.broadcastMessage(a);
+				i = 0;
+				ComponentBuilder builder = new ComponentBuilder();
+				for (String a : line.split("%-[0-9]-%")) {
+					builder.append(CoreUtils.colorize(a));
+					if (line.endsWith(a))
+						break;
+//					jsono.get(i)
+					Bukkit.broadcastMessage("add json");
+					i = i + 1;
 				}
 
 			}
