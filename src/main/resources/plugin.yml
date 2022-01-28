@@ -7,4 +7,6 @@ api: Spigot
 main: net.lushmc.core.LushPlugin
 commands:
    lush:
-      usage: /admin
+      usage: /lush
+   console:
+      usage: /console

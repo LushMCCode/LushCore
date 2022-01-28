@@ -104,7 +104,7 @@ public class Announcement {
 					if (json.has("console")) {
 						UID uid = AnnouncementUtils.createClickID();
 						builder.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
-								"console " + uid.toString() + " " + json.getString("console")));
+								"/console " + uid.toString() + " " + json.getString("console")));
 					}
 					builder.append("");
 					i = i + 1;
