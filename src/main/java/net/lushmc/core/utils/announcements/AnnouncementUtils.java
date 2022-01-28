@@ -52,14 +52,14 @@ public class AnnouncementUtils {
 			conf.set("Announcements.Test1.Enabled", true);
 			conf.set("Announcements.Test1.Sound", Sound.BLOCK_NOTE_BLOCK_BIT.name());
 			conf.set("Announcements.Test1.Announcement",
-					"&fType {\"text\":\"&a/spawn\",\"hover\":\"&aClick to teleport\",\"cmd\":\"spawn\"} &fto teleport to spawn.");
+					"&fType {\"text\":\"&a/spawn\",\"hover\":\"&aClick to teleport\",\"cmd\":\"/spawn\"} &fto teleport to spawn.");
 
 			conf.set("Announcements.Test2.Enabled", true);
 			List<String> list = new ArrayList<>();
 			list.add("&a--------------------------");
 			list.add("&r");
 			list.add(
-					"&fDon't forget to check out our {\"text\":\"&bforums\",\"hover\":\"&aClick to open\",\"https\":\"https://www.mysticcloud.net\"}&f!");
+					"&fDon't forget to check out our {\"text\":\"&bforums\",\"hover\":\"&aClick to open\",\"https\":\"https://www.mysticcloud.net/\"}&f!");
 			list.add("&r");
 			list.add("&a--------------------------");
 			conf.set("Announcements.Test2.Announcement", list);
