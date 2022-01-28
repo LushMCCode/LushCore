@@ -45,7 +45,7 @@ public class Announcement {
 		List<String> l = new ArrayList<>();
 		for (String s : strings)
 			l.add(s);
-		return setAnnouncement(l);
+		return setAnnouncementList(l);
 	}
 
 	private Announcement setAnnouncementList(List<String> announcement) {
