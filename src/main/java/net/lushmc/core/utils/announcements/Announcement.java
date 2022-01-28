@@ -66,7 +66,7 @@ public class Announcement {
 			if (line.contains("{") && line.contains("}")) {
 				int open = 0;
 				int close = 0;
-				LinkedList<JSONObject> jsono = new LinkedList<>();
+				LinkedList<String> jsono = new LinkedList<>();
 				String s = "";
 				for (int c = 0; c != line.length(); c++) {
 					if (line.substring(c, c + 1).equals("{"))
@@ -77,7 +77,7 @@ public class Announcement {
 						s = s + line.substring(c, c + 1);
 						Bukkit.broadcastMessage(s);
 						if (open == close) {
-							jsono.add(new JSONObject(s));
+							jsono.add(s);
 							s = "";
 							open = 0;
 							close = 0;
@@ -85,9 +85,9 @@ public class Announcement {
 					}
 				}
 				int i = 0;
-				for (JSONObject json : jsono) {
-					line = line.replace(json.toString(), "%-SPLIT-%");
-					Bukkit.broadcastMessage("TEST2: " + line.replace(json.toString(), "%-SPLIT-%"));
+				for (String j : jsono) {
+					line = line.replace(j, "%-SPLIT-%");
+					Bukkit.broadcastMessage("TEST2: " + line.replace(j, "%-SPLIT-%"));
 					i = i + 1;
 				}
 				i = 0;
@@ -95,8 +95,8 @@ public class Announcement {
 					builder.append(CoreUtils.colorize(a));
 					if (line.endsWith(a))
 						break;
-					JSONObject json = jsono.get(i);
-					builder.append(CoreUtils.colorize(jsono.get(i).getString("text")));
+					JSONObject json = new JSONObject(jsono.get(i));
+					builder.append(CoreUtils.colorize(json.getString("text")));
 					if (json.has("cmd"))
 						builder.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
 								PlaceholderAPI.setPlaceholders(player, json.getString("cmd"))));
