@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.json2.JSONObject;
@@ -61,7 +62,9 @@ public class Announcement {
 	public Announcement announce(Player player) {
 		for (String line : announcement) {
 			ComponentBuilder builder = new ComponentBuilder();
+			Bukkit.broadcastMessage("1");
 			if (line.contains("{") && line.contains("}")) {
+				Bukkit.broadcastMessage("2");
 				int open = 0;
 				int close = 0;
 				LinkedList<JSONObject> jsono = new LinkedList<>();
