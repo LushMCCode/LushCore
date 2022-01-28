@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import org.bukkit.Bukkit;
 
 import net.lushmc.core.LushPlugin;
-import net.lushmc.core.utils.announcements.Announcement;
 import net.lushmc.core.utils.announcements.AnnouncementUtils;
 import net.lushmc.core.utils.runnables.Heartbeat;
 import net.md_5.bungee.api.ChatColor;
@@ -27,12 +26,17 @@ public class CoreUtils {
 		plugin = main;
 		addPrefix("admin", "&c&lAdmin &8> &7");
 
-		AnnouncementUtils.announcements.put("test",
-				new Announcement("test").setAnnoucement(
-						"This is a te&ast {\"test\":{\"test1\":\"rawr\"}} anot&fher test {\"json\":\"test\"} test")
-						.setEnabled(true));
+		AnnouncementUtils.init();
 
-		Bukkit.getScheduler().runTaskLater(getPlugin(), new Heartbeat(), 1);
+		int delay = 6;
+		if (plugin.getConfig().isSet("AnnouncementDelay"))
+			delay = plugin.getConfig().getInt("AnnouncementDelay");
+		else {
+			plugin.getConfig().set("AnnouncementDelay", delay);
+			plugin.saveConfig();
+		}
+
+		Bukkit.getScheduler().runTaskLater(getPlugin(), new Heartbeat(delay), 1);
 	}
 
 	public static LushPlugin getPlugin() {

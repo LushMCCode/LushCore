@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.json2.JSONObject;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.lushmc.core.utils.CoreUtils;
+import net.lushmc.core.utils.UID;
+import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 
 public class Announcement {
@@ -19,7 +22,7 @@ public class Announcement {
 	Sound sound;
 	boolean enabled;
 
-	List<String> annoucement = new ArrayList<>();
+	List<String> announcement = new ArrayList<>();
 
 	public Announcement(String name) {
 		this.name = name;
@@ -37,27 +40,26 @@ public class Announcement {
 		return this;
 	}
 
-	private Announcement setAnnoucementString(String... strings) {
+	private Announcement setAnnouncementString(String... strings) {
 		List<String> l = new ArrayList<>();
 		for (String s : strings)
 			l.add(s);
-		return setAnnoucement(l);
+		return setAnnouncement(l);
 	}
 
-	private Announcement setAnnoucementList(List<String> annoucement) {
-		this.annoucement = annoucement;
+	private Announcement setAnnouncementList(List<String> announcement) {
+		this.announcement = announcement;
 		return this;
 	}
 
 	@SuppressWarnings("unchecked")
-	public Announcement setAnnoucement(Object strings) {
-		return strings instanceof List ? setAnnoucementList((List<String>) strings)
-				: setAnnoucementString(strings + "");
+	public Announcement setAnnouncement(Object strings) {
+		return strings instanceof List ? setAnnouncementList((List<String>) strings)
+				: setAnnouncementString(strings + "");
 	}
 
 	public Announcement announce(Player player) {
-		for (String line : annoucement) {
-//			Bukkit.broadcastMessage(line);
+		for (String line : announcement) {
 			ComponentBuilder builder = new ComponentBuilder();
 			if (line.contains("{") && line.contains("}")) {
 				int open = 0;
@@ -71,27 +73,17 @@ public class Announcement {
 						if (line.substring(c, c + 1).equals("}"))
 							close = close + 1;
 						s = s + line.substring(c, c + 1);
-
 						if (open == close) {
 							jsono.add(new JSONObject(s));
 							s = "";
 							open = 0;
 							close = 0;
 						}
-
 					}
 				}
 				int i = 0;
 				for (JSONObject json : jsono) {
 					line = line.replace(json.toString(), "%-" + i + "-%");
-//					BaseComponent[] accept = new ComponentBuilder("Type ").color(ChatColor.WHITE).append("/tpaccept")
-//							.color(ChatColor.GRAY).append(" or click ").color(ChatColor.WHITE).append("[Accept]")
-//							.color(ChatColor.GREEN).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpaccept"))
-//							.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-//									new Text(CoreUtils.colorize(
-//											"&fClick to &aaccept&f the\n&fteleport request from\n&7" + player.getName()))))
-//							.create();
-
 					i = i + 1;
 				}
 				i = 0;
@@ -99,14 +91,30 @@ public class Announcement {
 					builder.append(CoreUtils.colorize(a));
 					if (line.endsWith(a))
 						break;
-//					jsono.get(i)
-					builder.append("[test]");
+					JSONObject json = jsono.get(i);
+					builder.append(CoreUtils.colorize(jsono.get(i).getString("text")));
+					if (json.has("cmd"))
+						builder.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+								PlaceholderAPI.setPlaceholders(player, json.getString("cmd"))));
+					if (json.has("hover"))
+						builder.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(
+								CoreUtils.colorize(PlaceholderAPI.setPlaceholders(player, json.getString("hover"))))));
+					if (json.has("https"))
+						builder.event(new ClickEvent(ClickEvent.Action.OPEN_URL,
+								PlaceholderAPI.setPlaceholders(player, json.getString("https"))));
+					if (json.has("console")) {
+						UID uid = AnnouncementUtils.createClickID();
+						builder.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+								"console " + uid.toString() + " " + json.getString("console")));
+					}
 					i = i + 1;
 				}
-
 			}
 			player.spigot().sendMessage(builder.create());
 		}
+		if (sound != null)
+			player.playSound(player.getLocation(), sound, 10, 0);
+
 		return this;
 	}
 

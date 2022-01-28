@@ -13,11 +13,16 @@ import net.lushmc.core.utils.announcements.AnnouncementUtils;
 public class Heartbeat implements Runnable {
 
 	long lastAnnouncement = 0;
+	int delay;
+
+	public Heartbeat(int delay) {
+		this.delay = delay;
+	}
 
 	@Override
 	public void run() {
 
-		if (new Date().getTime() - lastAnnouncement >= TimeUnit.MILLISECONDS.convert(9, TimeUnit.HOURS)) {
+		if (new Date().getTime() - lastAnnouncement >= TimeUnit.MILLISECONDS.convert(delay, TimeUnit.MINUTES)) {
 			lastAnnouncement = new Date().getTime();
 			Announcement a = AnnouncementUtils.getAnnouncements().get("test");
 			for (Player player : Bukkit.getOnlinePlayers()) {
