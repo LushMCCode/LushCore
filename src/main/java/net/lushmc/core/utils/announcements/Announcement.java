@@ -60,6 +60,7 @@ public class Announcement {
 				LinkedList<JSONObject> jsono = new LinkedList<>();
 				String s = "";
 				for (int c = 0; c != line.length(); c++) {
+					Bukkit.broadcastMessage(s);
 					if (line.substring(c, c + 1).equals("{"))
 						open = open + 1;
 					if (open >= 1) {
@@ -68,6 +69,7 @@ public class Announcement {
 						s = s + line.substring(c, c + 1);
 
 						if (open == close) {
+							Bukkit.broadcastMessage("Final: " + s);
 							jsono.add(new JSONObject(s));
 							s = "";
 						}
