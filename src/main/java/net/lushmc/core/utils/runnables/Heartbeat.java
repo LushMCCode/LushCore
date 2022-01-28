@@ -1,6 +1,7 @@
 package net.lushmc.core.utils.runnables;
 
 import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
@@ -24,7 +25,8 @@ public class Heartbeat implements Runnable {
 
 		if (new Date().getTime() - lastAnnouncement >= TimeUnit.MILLISECONDS.convert(delay, TimeUnit.MINUTES)) {
 			lastAnnouncement = new Date().getTime();
-			Announcement a = AnnouncementUtils.getAnnouncements().get("test");
+			Announcement a = (Announcement) AnnouncementUtils.getAnnouncements().values().toArray()[new Random()
+					.nextInt(AnnouncementUtils.getAnnouncements().size())];
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				a.announce(player);
 			}
