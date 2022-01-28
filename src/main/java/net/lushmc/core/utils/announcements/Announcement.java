@@ -113,8 +113,8 @@ public class Announcement {
 					}
 					i = i + 1;
 				}
-			}
-			builder.append(CoreUtils.colorize(PlaceholderAPI.setPlaceholders(player, line)));
+			} else
+				builder.append(CoreUtils.colorize(PlaceholderAPI.setPlaceholders(player, line)));
 			player.spigot().sendMessage(builder.create());
 		}
 		if (sound != null)
