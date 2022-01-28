@@ -72,6 +72,8 @@ public class Announcement {
 							Bukkit.broadcastMessage("Final: " + s);
 							jsono.add(new JSONObject(s));
 							s = "";
+							open = 0;
+							close = 0;
 						}
 
 					}
