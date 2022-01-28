@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.json2.JSONObject;
@@ -107,6 +106,7 @@ public class Announcement {
 						builder.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
 								"console " + uid.toString() + " " + json.getString("console")));
 					}
+					builder.append("");
 					i = i + 1;
 				}
 			} else
