@@ -62,9 +62,7 @@ public class Announcement {
 	public Announcement announce(Player player) {
 		for (String line : announcement) {
 			ComponentBuilder builder = new ComponentBuilder();
-			Bukkit.broadcastMessage("1");
 			if (line.contains("{") && line.contains("}")) {
-				Bukkit.broadcastMessage("2");
 				int open = 0;
 				int close = 0;
 				LinkedList<JSONObject> jsono = new LinkedList<>();
@@ -76,6 +74,7 @@ public class Announcement {
 						if (line.substring(c, c + 1).equals("}"))
 							close = close + 1;
 						s = s + line.substring(c, c + 1);
+						Bukkit.broadcastMessage(s);
 						if (open == close) {
 							jsono.add(new JSONObject(s));
 							s = "";
@@ -113,6 +112,7 @@ public class Announcement {
 					i = i + 1;
 				}
 			}
+			builder.append(CoreUtils.colorize(PlaceholderAPI.setPlaceholders(player, line)));
 			player.spigot().sendMessage(builder.create());
 		}
 		if (sound != null)
