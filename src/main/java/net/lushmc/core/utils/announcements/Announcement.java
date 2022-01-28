@@ -100,7 +100,7 @@ public class Announcement {
 					if (line.endsWith(a))
 						break;
 //					jsono.get(i)
-					Bukkit.broadcastMessage("add json");
+					builder.append("[test]");
 					i = i + 1;
 				}
 

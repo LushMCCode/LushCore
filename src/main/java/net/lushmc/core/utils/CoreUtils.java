@@ -28,9 +28,8 @@ public class CoreUtils {
 		addPrefix("admin", "&c&lAdmin &8> &7");
 
 		AnnouncementUtils.announcements.put("test",
-				new Announcement("test")
-						.setAnnoucement(
-								"This is a test {\"test\":{\"test1\":\"rawr\"}} another test {\"json\":\"test\"} test")
+				new Announcement("test").setAnnoucement(
+						"This is a te&ast {\"test\":{\"test1\":\"rawr\"}} anot&fher test {\"json\":\"test\"} test")
 						.setEnabled(true));
 
 		Bukkit.getScheduler().runTaskLater(getPlugin(), new Heartbeat(), 1);
