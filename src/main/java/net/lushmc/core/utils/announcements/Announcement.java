@@ -57,7 +57,8 @@ public class Announcement {
 
 	public Announcement announce(Player player) {
 		for (String line : annoucement) {
-			Bukkit.broadcastMessage(line);
+//			Bukkit.broadcastMessage(line);
+			ComponentBuilder builder = new ComponentBuilder();
 			if (line.contains("{") && line.contains("}")) {
 				int open = 0;
 				int close = 0;
@@ -94,7 +95,6 @@ public class Announcement {
 					i = i + 1;
 				}
 				i = 0;
-				ComponentBuilder builder = new ComponentBuilder();
 				for (String a : line.split("%-[0-9]-%")) {
 					builder.append(CoreUtils.colorize(a));
 					if (line.endsWith(a))
@@ -105,6 +105,7 @@ public class Announcement {
 				}
 
 			}
+			player.spigot().sendMessage(builder.create());
 		}
 		return this;
 	}
