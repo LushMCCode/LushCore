@@ -86,8 +86,8 @@ public class Announcement {
 				}
 				int i = 0;
 				for (JSONObject json : jsono) {
-					line = line.replaceFirst(json.toString().replace("\\", "\\\\"), "%-SPLIT-%");
-					Bukkit.broadcastMessage("TEST2: " + line);
+					line = line.replace(json.toString(), "%-SPLIT-%");
+					Bukkit.broadcastMessage("TEST2: " + line.replace(json.toString(), "%-SPLIT-%"));
 					i = i + 1;
 				}
 				i = 0;
