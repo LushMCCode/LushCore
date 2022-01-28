@@ -86,7 +86,7 @@ public class Announcement {
 				}
 				int i = 0;
 				for (JSONObject json : jsono) {
-					line = line.replaceAll(json.toString(), "%-" + i + "-%");
+					line = line.replaceFirst(json.toString(), "%-" + i + "-%");
 					Bukkit.broadcastMessage("TEST2: " + line);
 					i = i + 1;
 				}
