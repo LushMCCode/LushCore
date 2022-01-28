@@ -49,12 +49,10 @@ public class AnnouncementUtils {
 				announcements.put(name, a);
 			}
 		} else {
-			List<String> list1 = new ArrayList<>();
-			list1.add(
-					"&fType {\"text\":\"&a/spawn\",\"hover\":\"&aClick to teleport\",\"cmd\":\"spawn\"} &fto teleport to spawn.");
 			conf.set("Announcements.Test1.Enabled", true);
 			conf.set("Announcements.Test1.Sound", Sound.BLOCK_NOTE_BLOCK_BIT.name());
-			conf.set("Announcements.Test1.Announcement", "test");
+			conf.set("Announcements.Test1.Announcement",
+					"&fType {\"text\":\"&a/spawn\",\"hover\":\"&aClick to teleport\",\"cmd\":\"spawn\"} &fto teleport to spawn.");
 
 			conf.set("Announcements.Test2.Enabled", true);
 			List<String> list = new ArrayList<>();
