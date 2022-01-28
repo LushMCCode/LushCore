@@ -60,7 +60,6 @@ public class Announcement {
 				LinkedList<JSONObject> jsono = new LinkedList<>();
 				String s = "";
 				for (int c = 0; c != line.length(); c++) {
-					Bukkit.broadcastMessage(s);
 					if (line.substring(c, c + 1).equals("{"))
 						open = open + 1;
 					if (open >= 1) {
@@ -69,7 +68,6 @@ public class Announcement {
 						s = s + line.substring(c, c + 1);
 
 						if (open == close) {
-							Bukkit.broadcastMessage("Final: " + s);
 							jsono.add(new JSONObject(s));
 							s = "";
 							open = 0;
@@ -78,13 +76,23 @@ public class Announcement {
 
 					}
 				}
-//				String jsons = line.substring(line.indexOf("{"), line.lastIndexOf("}")+1);
-				Bukkit.broadcastMessage("JSON Size: " + jsono.size());
+				int i = 0;
 				for (JSONObject json : jsono) {
-					Bukkit.broadcastMessage(json.toString());
+					line = line.replace(json.toString(), "%-" + i + "-%");
+//					BaseComponent[] accept = new ComponentBuilder("Type ").color(ChatColor.WHITE).append("/tpaccept")
+//							.color(ChatColor.GRAY).append(" or click ").color(ChatColor.WHITE).append("[Accept]")
+//							.color(ChatColor.GREEN).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpaccept"))
+//							.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+//									new Text(CoreUtils.colorize(
+//											"&fClick to &aaccept&f the\n&fteleport request from\n&7" + player.getName()))))
+//							.create();
+
+					i = i + 1;
 				}
-//				String jsons = "[" + line.split("[")[0].split("]")[line.split("[")[0].split("]").length];
-//				Bukkit.broadcastMessage(jsons);
+				for (String a : line.split("[0-9]")) {
+					Bukkit.broadcastMessage(a);
+				}
+
 			}
 		}
 		return this;
