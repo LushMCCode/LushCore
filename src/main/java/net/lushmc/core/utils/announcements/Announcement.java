@@ -86,12 +86,12 @@ public class Announcement {
 				}
 				int i = 0;
 				for (JSONObject json : jsono) {
-					line = line.replace(json.toString(), "%-" + i + "-%");
+					line = line.replace(json.toString(), "%-SPLIT-%");
 					Bukkit.broadcastMessage("TEST2: " + line);
 					i = i + 1;
 				}
 				i = 0;
-				for (String a : line.split("%-[0-9]-%")) {
+				for (String a : line.split("%-SPLIT-%")) {
 					builder.append(CoreUtils.colorize(a));
 					if (line.endsWith(a))
 						break;
