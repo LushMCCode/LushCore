@@ -62,6 +62,7 @@ public class Announcement {
 	public Announcement announce(Player player) {
 		for (String line : announcement) {
 			ComponentBuilder builder = new ComponentBuilder();
+			Bukkit.broadcastMessage("TEST: " + line);
 			if (line.contains("{") && line.contains("}")) {
 				int open = 0;
 				int close = 0;
