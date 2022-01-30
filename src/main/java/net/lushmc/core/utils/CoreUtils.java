@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
+import org.bukkit.scheduler.BukkitTask;
 
 import net.lushmc.core.LushPlugin;
 import net.lushmc.core.utils.announcements.AnnouncementUtils;
@@ -21,6 +22,8 @@ public class CoreUtils {
 
 	private static LushPlugin plugin;
 	private static Map<String, String> prefixes = new HashMap<>();
+	private static int heartbeat_delay = 6;
+	private static BukkitTask heartbeat;
 
 	public static void init(LushPlugin main) {
 		plugin = main;
@@ -28,15 +31,18 @@ public class CoreUtils {
 
 		AnnouncementUtils.init();
 
-		int delay = 6;
+		readConfig();
+
+		heartbeat = Bukkit.getScheduler().runTaskLater(getPlugin(), new Heartbeat(heartbeat_delay), 1);
+	}
+
+	private static void readConfig() {
 		if (plugin.getConfig().isSet("AnnouncementDelay"))
-			delay = plugin.getConfig().getInt("AnnouncementDelay");
+			heartbeat_delay = plugin.getConfig().getInt("AnnouncementDelay");
 		else {
-			plugin.getConfig().set("AnnouncementDelay", delay);
+			plugin.getConfig().set("AnnouncementDelay", heartbeat_delay);
 			plugin.saveConfig();
 		}
-
-		Bukkit.getScheduler().runTaskLater(getPlugin(), new Heartbeat(delay), 1);
 	}
 
 	public static LushPlugin getPlugin() {
@@ -126,6 +132,13 @@ public class CoreUtils {
 				}
 		}
 		return success;
+	}
+
+	public static void reload() {
+		readConfig();
+		AnnouncementUtils.reload();
+		heartbeat.cancel();
+		heartbeat = Bukkit.getScheduler().runTaskLater(getPlugin(), new Heartbeat(heartbeat_delay), 1);
 	}
 
 }

@@ -8,6 +8,7 @@ import org.bukkit.command.PluginCommand;
 import net.lushmc.core.LushPlugin;
 import net.lushmc.core.commands.listeners.AdminCommandTabCompleter;
 import net.lushmc.core.utils.CoreUtils;
+import net.lushmc.core.utils.announcements.AnnouncementUtils;
 
 public class AdminCommands implements CommandExecutor {
 
@@ -28,6 +29,26 @@ public class AdminCommands implements CommandExecutor {
 			}
 			if (args.length == 0) {
 				return true;
+			}
+			if (args[0].equalsIgnoreCase("reload")) {
+				if (args.length == 1) {
+					sender.sendMessage(CoreUtils.prefixes("admin")
+							+ CoreUtils.colorize("Usage: /lush reload <all,announcements>"));
+				} else {
+					switch (args[1].toLowerCase()) {
+					case "announcements":
+						sender.sendMessage(CoreUtils.prefixes("admin") + "Reloading Announcements.");
+						AnnouncementUtils.reload();
+						break;
+					case "all":
+						sender.sendMessage(CoreUtils.prefixes("admin") + "Reloading all configuration files.");
+						CoreUtils.reload();
+						break;
+					default:
+						sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("admin") + "Invalid System."));
+						break;
+					}
+				}
 			}
 			if (args[0].equalsIgnoreCase("update")) {
 				String plugin = "LushCore";

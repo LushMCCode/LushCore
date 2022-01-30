@@ -104,4 +104,10 @@ public class AnnouncementUtils {
 		return clickIds.contains(cid);
 	}
 
+	public static void reload() {
+		announcements.clear();
+		clickIds.clear();
+		init();
+	}
+
 }
