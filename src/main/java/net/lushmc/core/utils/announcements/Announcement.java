@@ -89,13 +89,14 @@ public class Announcement {
 				int i = 0;
 				for (String a : line.split("%-SPLIT-%")) {
 					builder = builder.append(CoreUtils.colorize(a));
+					Bukkit.broadcastMessage("append 1: " + a);
 					if (line.endsWith(a)) {
 						Bukkit.broadcastMessage("break: " + a);
 						break;
 					}
 					JSONObject json = new JSONObject(jsono.get(i));
 					builder = builder.append(CoreUtils.colorize(json.getString("text")));
-					Bukkit.broadcastMessage("append: " + json.getString("text"));
+					Bukkit.broadcastMessage("append 2: " + json.getString("text"));
 					if (json.has("cmd"))
 						builder = builder.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
 								PlaceholderAPI.setPlaceholders(player, json.getString("cmd"))));
@@ -110,6 +111,7 @@ public class Announcement {
 						builder = builder.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
 								"/console " + uid.toString() + " " + json.getString("console")));
 					}
+					Bukkit.broadcastMessage("append 3");
 					builder = builder.append("");
 					i = i + 1;
 				}
