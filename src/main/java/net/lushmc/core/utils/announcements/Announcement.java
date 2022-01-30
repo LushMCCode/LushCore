@@ -90,7 +90,7 @@ public class Announcement {
 				for (String a : line.split("%-SPLIT-%")) {
 					builder = builder.append(CoreUtils.colorize(a));
 					if (line.endsWith(a)) {
-						Bukkit.broadcastMessage("break");
+						Bukkit.broadcastMessage("break: " + a);
 						break;
 					}
 					JSONObject json = new JSONObject(jsono.get(i));
