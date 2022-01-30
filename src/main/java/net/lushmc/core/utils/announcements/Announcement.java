@@ -95,24 +95,25 @@ public class Announcement {
 						break;
 					}
 					JSONObject json = new JSONObject(jsono.get(i));
-					builder = builder.append(CoreUtils.colorize(json.getString("text")));
+					ComponentBuilder sb = new ComponentBuilder();
+					sb = sb.append(CoreUtils.colorize(json.getString("text")));
 					Bukkit.broadcastMessage("append 2: " + json.getString("text"));
 					if (json.has("cmd"))
-						builder = builder.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+						sb = sb.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
 								PlaceholderAPI.setPlaceholders(player, json.getString("cmd"))));
 					if (json.has("hover"))
-						builder = builder.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(
+						sb = sb.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(
 								CoreUtils.colorize(PlaceholderAPI.setPlaceholders(player, json.getString("hover"))))));
 					if (json.has("https"))
-						builder = builder.event(new ClickEvent(ClickEvent.Action.OPEN_URL,
+						sb = sb.event(new ClickEvent(ClickEvent.Action.OPEN_URL,
 								PlaceholderAPI.setPlaceholders(player, json.getString("https"))));
 					if (json.has("console")) {
 						UID uid = AnnouncementUtils.createClickID();
-						builder = builder.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+						sb = sb.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
 								"/console " + uid.toString() + " " + json.getString("console")));
 					}
 					Bukkit.broadcastMessage("append 3");
-					builder = builder.append("");
+					builder = builder.append(sb.create());
 					i = i + 1;
 				}
 			} else
