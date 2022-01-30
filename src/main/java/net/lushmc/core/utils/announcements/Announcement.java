@@ -119,4 +119,8 @@ public class Announcement {
 		return this;
 	}
 
+	public boolean isEnabled() {
+		return enabled;
+	}
+
 }

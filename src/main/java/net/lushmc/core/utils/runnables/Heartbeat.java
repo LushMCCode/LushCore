@@ -27,6 +27,9 @@ public class Heartbeat implements Runnable {
 			lastAnnouncement = new Date().getTime();
 			Announcement a = (Announcement) AnnouncementUtils.getAnnouncements().values().toArray()[new Random()
 					.nextInt(AnnouncementUtils.getAnnouncements().size())];
+			while (!a.isEnabled())
+				a = (Announcement) AnnouncementUtils.getAnnouncements().values().toArray()[new Random()
+						.nextInt(AnnouncementUtils.getAnnouncements().size())];
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				a.announce(player);
 			}
