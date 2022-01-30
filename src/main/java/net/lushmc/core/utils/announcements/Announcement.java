@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.json2.JSONObject;
@@ -88,8 +89,10 @@ public class Announcement {
 				int i = 0;
 				for (String a : line.split("%-SPLIT-%")) {
 					builder = builder.append(CoreUtils.colorize(a));
-					if (line.endsWith(a))
+					if (line.endsWith(a)) {
+						Bukkit.broadcastMessage("break");
 						break;
+					}
 					JSONObject json = new JSONObject(jsono.get(i));
 					builder = builder.append(CoreUtils.colorize(json.getString("text")));
 					if (json.has("cmd"))
