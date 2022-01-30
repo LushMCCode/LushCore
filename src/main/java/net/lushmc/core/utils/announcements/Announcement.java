@@ -87,30 +87,30 @@ public class Announcement {
 				}
 				int i = 0;
 				for (String a : line.split("%-SPLIT-%")) {
-					builder.append(CoreUtils.colorize(a));
+					builder = builder.append(CoreUtils.colorize(a));
 					if (line.endsWith(a))
 						break;
 					JSONObject json = new JSONObject(jsono.get(i));
-					builder.append(CoreUtils.colorize(json.getString("text")));
+					builder = builder.append(CoreUtils.colorize(json.getString("text")));
 					if (json.has("cmd"))
-						builder.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+						builder = builder.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
 								PlaceholderAPI.setPlaceholders(player, json.getString("cmd"))));
 					if (json.has("hover"))
-						builder.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(
+						builder = builder.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(
 								CoreUtils.colorize(PlaceholderAPI.setPlaceholders(player, json.getString("hover"))))));
 					if (json.has("https"))
-						builder.event(new ClickEvent(ClickEvent.Action.OPEN_URL,
+						builder = builder.event(new ClickEvent(ClickEvent.Action.OPEN_URL,
 								PlaceholderAPI.setPlaceholders(player, json.getString("https"))));
 					if (json.has("console")) {
 						UID uid = AnnouncementUtils.createClickID();
-						builder.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+						builder = builder.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
 								"/console " + uid.toString() + " " + json.getString("console")));
 					}
-					builder.append("");
+					builder = builder.append("");
 					i = i + 1;
 				}
 			} else
-				builder.append(CoreUtils.colorize(PlaceholderAPI.setPlaceholders(player, line)));
+				builder = builder.append(CoreUtils.colorize(PlaceholderAPI.setPlaceholders(player, line)));
 			player.spigot().sendMessage(builder.create());
 		}
 		if (sound != null)
