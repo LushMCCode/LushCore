@@ -95,6 +95,7 @@ public class Announcement {
 					}
 					JSONObject json = new JSONObject(jsono.get(i));
 					builder = builder.append(CoreUtils.colorize(json.getString("text")));
+					Bukkit.broadcastMessage("append: " + json.getString("text"));
 					if (json.has("cmd"))
 						builder = builder.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
 								PlaceholderAPI.setPlaceholders(player, json.getString("cmd"))));
