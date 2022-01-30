@@ -15,6 +15,7 @@ import net.lushmc.core.utils.UID;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 
 public class Announcement {
@@ -95,25 +96,24 @@ public class Announcement {
 						break;
 					}
 					JSONObject json = new JSONObject(jsono.get(i));
-					ComponentBuilder sb = new ComponentBuilder();
-					sb = sb.append(CoreUtils.colorize(json.getString("text")));
+					TextComponent sb = new TextComponent(CoreUtils.colorize(json.getString("text")));
 					Bukkit.broadcastMessage("append 2: " + json.getString("text"));
 					if (json.has("cmd"))
-						sb = sb.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+						sb.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
 								PlaceholderAPI.setPlaceholders(player, json.getString("cmd"))));
 					if (json.has("hover"))
-						sb = sb.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(
+						sb.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(
 								CoreUtils.colorize(PlaceholderAPI.setPlaceholders(player, json.getString("hover"))))));
 					if (json.has("https"))
-						sb = sb.event(new ClickEvent(ClickEvent.Action.OPEN_URL,
+						sb.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,
 								PlaceholderAPI.setPlaceholders(player, json.getString("https"))));
 					if (json.has("console")) {
-						UID uid = AnnouncementUtils.createClickID();
-						sb = sb.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
-								"/console " + uid.toString() + " " + json.getString("console")));
+						sb.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/console "
+								+ AnnouncementUtils.createClickID().toString() + " " + json.getString("console")));
 					}
+
 					Bukkit.broadcastMessage("append 3");
-					builder = builder.append(sb.create());
+					builder = builder.append(sb);
 					i = i + 1;
 				}
 			} else
