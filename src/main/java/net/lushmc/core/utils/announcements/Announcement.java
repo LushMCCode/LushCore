@@ -93,7 +93,7 @@ public class Announcement {
 					l.setClickEvent(null);
 					l.setHoverEvent(null);
 					builder = builder.append(l);
-					Bukkit.broadcastMessage("append 1: " + a);
+					Bukkit.broadcastMessage("append 1: " + l);
 					if (line.endsWith(a)) {
 						Bukkit.broadcastMessage("break: " + a);
 						break;
