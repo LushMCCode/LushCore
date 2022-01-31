@@ -89,7 +89,8 @@ public class Announcement {
 				}
 				int i = 0;
 				for (String a : line.split("%-SPLIT-%")) {
-					builder = builder.append(CoreUtils.colorize(a));
+					builder = builder
+							.append(new TextComponent(PlaceholderAPI.setPlaceholders(player, CoreUtils.colorize(a))));
 					Bukkit.broadcastMessage("append 1: " + a);
 					if (line.endsWith(a)) {
 						Bukkit.broadcastMessage("break: " + a);
