@@ -93,14 +93,14 @@ public class Announcement {
 					l.setClickEvent(null);
 					l.setHoverEvent(null);
 					builder = builder.append(l);
-					Bukkit.broadcastMessage("append 1: " + l);
+//					Bukkit.broadcastMessage("append 1: " + l);
 					if (line.endsWith(a)) {
-						Bukkit.broadcastMessage("break: " + a);
+//						Bukkit.broadcastMessage("break: " + a);
 						break;
 					}
 					JSONObject json = new JSONObject(jsono.get(i));
 					TextComponent sb = new TextComponent(CoreUtils.colorize(json.getString("text")));
-					Bukkit.broadcastMessage("append 2: " + json.getString("text"));
+//					Bukkit.broadcastMessage("append 2: " + json.getString("text"));
 					if (json.has("cmd"))
 						sb.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
 								PlaceholderAPI.setPlaceholders(player, json.getString("cmd"))));
@@ -113,9 +113,9 @@ public class Announcement {
 					if (json.has("console")) {
 						sb.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/console "
 								+ AnnouncementUtils.createClickID().toString() + " " + json.getString("console")));
-					}
+					} 
 
-					Bukkit.broadcastMessage("append 3");
+//					Bukkit.broadcastMessage("append 3");
 					builder = builder.append(sb);
 					i = i + 1;
 				}
