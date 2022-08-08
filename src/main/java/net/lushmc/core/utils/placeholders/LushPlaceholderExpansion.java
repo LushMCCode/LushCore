@@ -29,7 +29,8 @@ public class LushPlaceholderExpansion extends PlaceholderExpansion {
 		if (player == null)
 			return null;
 		if (params.equalsIgnoreCase("level")) {
-			return "" + (int) LevelUtils.getMainWorker().getLevel((long) (player.getPlayer().getExp() * 100));
+			return ""
+					+ (int) LevelUtils.getMainWorker().getLevel((long) (player.getPlayer().getTotalExperience() * 100));
 		}
 		return null;
 	}
