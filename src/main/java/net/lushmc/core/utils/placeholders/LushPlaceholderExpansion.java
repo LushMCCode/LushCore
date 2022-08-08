@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import net.lushmc.core.utils.levels.LevelUtils;
 
-public class LevelPlaceholderExpansion extends PlaceholderExpansion {
+public class LushPlaceholderExpansion extends PlaceholderExpansion {
 
 	@Override
 	public String getAuthor() {
@@ -16,7 +16,7 @@ public class LevelPlaceholderExpansion extends PlaceholderExpansion {
 
 	@Override
 	public String getIdentifier() {
-		return "levelpapi";
+		return "lush";
 	}
 
 	@Override

@@ -38,7 +38,7 @@ import net.lushmc.core.utils.gui.GuiItem;
 import net.lushmc.core.utils.gui.GuiManager;
 import net.lushmc.core.utils.items.ItemManager;
 import net.lushmc.core.utils.levels.LevelUtils;
-import net.lushmc.core.utils.placeholders.LevelPlaceholderExpansion;
+import net.lushmc.core.utils.placeholders.LushPlaceholderExpansion;
 import net.lushmc.core.utils.runnables.Heartbeat;
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.chat.Chat;
@@ -75,7 +75,7 @@ public class CoreUtils {
 		AnnouncementUtils.init();
 
 		LevelUtils.start();
-		PlaceholderAPI.registerExpansion(new LevelPlaceholderExpansion());
+		PlaceholderAPI.registerExpansion(new LushPlaceholderExpansion());
 
 		readConfig();
 		guiFolder = new File(plugin.getDataFolder().getPath() + "/guis");
