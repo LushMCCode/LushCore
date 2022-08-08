@@ -474,58 +474,6 @@ public class CoreUtils {
 		return skull;
 	}
 
-	public static boolean update() {
-
-		boolean success = true;
-		InputStream in = null;
-		FileOutputStream out = null;
-
-		try {
-
-			URL myUrl = new URL(
-					"https://jenkins.mysticcloud.net/job/MysticGuis/lastSuccessfulBuild/artifact/target/MysticGuis.jar");
-			HttpURLConnection conn = (HttpURLConnection) myUrl.openConnection();
-			conn.setDoOutput(true);
-			conn.setReadTimeout(30000);
-			conn.setConnectTimeout(30000);
-			conn.setUseCaches(false);
-			conn.setAllowUserInteraction(false);
-			conn.setRequestProperty("Content-Type", "application/json");
-			conn.setRequestProperty("Accept-Charset", "UTF-8");
-			conn.setRequestMethod("GET");
-			in = conn.getInputStream();
-			out = new FileOutputStream("plugins/" + PLUGIN + ".jar");
-			int c;
-			byte[] b = new byte[1024];
-			while ((c = in.read(b)) != -1)
-				out.write(b, 0, c);
-
-		}
-
-		catch (Exception ex) {
-			log(("There was an error updating. Check console for details."));
-			ex.printStackTrace();
-			success = false;
-		}
-
-		finally {
-			if (in != null)
-				try {
-					in.close();
-				} catch (IOException e) {
-					log(("There was an error updating. Check console for details."));
-					e.printStackTrace();
-				}
-			if (out != null)
-				try {
-					out.close();
-				} catch (IOException e) {
-					log(("There was an error updating. Check console for details."));
-					e.printStackTrace();
-				}
-		}
-		return success;
-	}
 
 	public static String setPlaceholders(Player player, String string) {
 		string = string.replaceAll("%player%", player.getName());

@@ -56,7 +56,7 @@ public class AdminCommands implements CommandExecutor {
 				String url = "https://ci.quickscythe.com/job/" + plugin + "/lastSuccessfulBuild/artifact/target/"
 						+ filename;
 				sender.sendMessage(CoreUtils.prefixes("admin") + "Downloading " + filename + "...");
-				if (CoreUtils.downloadFile(url, "plugins/" + filename, "admin", "BAG3jbe!Q#C7XaYJ"))
+				if (CoreUtils.downloadFile(url, "plugins/" + filename, "QuickScythe", "r6Pt#BF#Lg73@s4t"))
 					sender.sendMessage(
 							CoreUtils.prefixes("admin") + CoreUtils.colorize("Finished downloading " + filename));
 				else {
