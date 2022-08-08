@@ -5,7 +5,7 @@ public class LevelWorker {
 	private double multiplier;
 
 	LevelWorker() {
-		this(50, 8);
+		this(7, 7);
 	}
 
 	LevelWorker(double threshhold, double multiplier) {

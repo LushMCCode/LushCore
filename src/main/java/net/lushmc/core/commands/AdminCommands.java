@@ -53,8 +53,8 @@ public class AdminCommands implements CommandExecutor {
 			if (args[0].equalsIgnoreCase("update")) {
 				String plugin = "LushCore";
 				String filename = plugin + ".jar";
-				String url = "https://jenkins.mysticcloud.net/job/" + plugin
-						+ "/job/master/lastSuccessfulBuild/artifact/target/" + filename;
+				String url = "https://ci.quickscythe.com/job/" + plugin + "/lastSuccessfulBuild/artifact/target/"
+						+ filename;
 				sender.sendMessage(CoreUtils.prefixes("admin") + "Downloading " + filename + "...");
 				if (CoreUtils.downloadFile(url, "plugins/" + filename, "admin", "BAG3jbe!Q#C7XaYJ"))
 					sender.sendMessage(
