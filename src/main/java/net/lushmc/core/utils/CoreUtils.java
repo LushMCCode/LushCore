@@ -155,11 +155,11 @@ public class CoreUtils {
 			conn.setRequestProperty("Accept-Charset", "UTF-8");
 			conn.setRequestMethod("GET");
 
-			if (auth != null && auth.length >= 2) {
-				String userCredentials = auth[0].trim() + ":" + auth[1].trim();
-				String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
-				conn.setRequestProperty("Authorization", basicAuth);
-			}
+//			if (auth != null && auth.length >= 2) {
+//				String userCredentials = auth[0].trim() + ":" + auth[1].trim();
+//				String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
+//				conn.setRequestProperty("Authorization", basicAuth);
+//			}
 			in = conn.getInputStream();
 			out = new FileOutputStream(filename);
 			int c;
