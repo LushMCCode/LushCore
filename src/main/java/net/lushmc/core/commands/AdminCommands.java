@@ -51,7 +51,7 @@ public class AdminCommands implements CommandExecutor {
 				}
 			}
 			if (args[0].equalsIgnoreCase("update")) {
-				String plugin = "LushCore";
+				String plugin = args.length == 1 ? "LushCore" : args[1];
 				String filename = plugin + ".jar";
 				String url = "https://ci.quickscythe.com/job/" + plugin + "/lastSuccessfulBuild/artifact/target/"
 						+ filename;
