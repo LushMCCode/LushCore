@@ -13,7 +13,7 @@ public class LushPlugin extends JavaPlugin {
 
 		CoreUtils.init(this);
 
-		new AdminCommands(this, "lush");
+		new AdminCommands(this, "lush", "test");
 		new PlayerCommands(this, "console");
 	}
 
