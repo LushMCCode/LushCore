@@ -116,8 +116,8 @@ public class CoreUtils {
 
 	public static String prefixes(String key) {
 		if (prefixes.get(key) == null)
-			prefixes.put(key, colorize("&e&l" + key.toUpperCase().substring(0, 1)
-					+ key.toLowerCase().substring(1, key.length()) + " &7>&f "));
+			prefixes.put(key, colorize("&c&l" + key.toUpperCase().substring(0, 1)
+					+ key.toLowerCase().substring(1, key.length()) + " &7" + Emoticons.RIGHT_ARROW + "&f "));
 		return prefixes.get(key);
 	}
 
