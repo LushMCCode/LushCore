@@ -44,7 +44,7 @@ public class CoreChatUtils {
 		for (int i = 0; i < string.length(); i++) {
 			Color c = new Color(start[0] + dR * i, start[1] + dG * i, start[2] + dB * i);
 
-			sb.append(net.md_5.bungee.api.ChatColor.of(c) + "" + string.charAt(i));
+			sb.append(net.md_5.bungee.api.ChatColor.of(c) + "" + net.md_5.bungee.api.ChatColor.BOLD + string.charAt(i));
 		}
 		return sb.toString();
 	}
