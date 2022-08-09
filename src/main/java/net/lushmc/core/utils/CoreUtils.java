@@ -38,6 +38,7 @@ import net.lushmc.core.utils.gui.GuiItem;
 import net.lushmc.core.utils.gui.GuiManager;
 import net.lushmc.core.utils.items.ItemManager;
 import net.lushmc.core.utils.levels.LevelUtils;
+import net.lushmc.core.utils.placeholders.Emoticons;
 import net.lushmc.core.utils.placeholders.LushPlaceholderExpansion;
 import net.lushmc.core.utils.runnables.Heartbeat;
 import net.md_5.bungee.api.ChatColor;
@@ -70,7 +71,7 @@ public class CoreUtils {
 
 	public static void init(LushPlugin main) {
 		plugin = main;
-		addPrefix("admin", "&c&lAdmin &8> &7");
+		addPrefix("admin", "&c&lAdmin &8" + Emoticons.RIGHT_ARROW + " &7");
 
 		AnnouncementUtils.init();
 
@@ -473,7 +474,6 @@ public class CoreUtils {
 		skull.setItemMeta(meta);
 		return skull;
 	}
-
 
 	public static String setPlaceholders(Player player, String string) {
 		string = string.replaceAll("%player%", player.getName());
