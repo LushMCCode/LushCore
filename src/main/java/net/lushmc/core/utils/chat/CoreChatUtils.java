@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import net.lushmc.core.utils.CoreUtils;
 import net.lushmc.core.utils.placeholders.PlaceholderUtils;
+import net.md_5.bungee.api.ChatColor;
 
 public class CoreChatUtils {
 
@@ -32,6 +33,11 @@ public class CoreChatUtils {
 	}
 
 	public static String fade(String fromHex, String toHex, String string) {
+		return fade(fromHex, toHex, string, false, false, false, false, false);
+	}
+
+	public static String fade(String fromHex, String toHex, String string, boolean bold, boolean strikethrough,
+			boolean italic, boolean underline, boolean magic) {
 		int[] start = getRGB(fromHex);
 		int[] last = getRGB(toHex);
 
@@ -44,7 +50,9 @@ public class CoreChatUtils {
 		for (int i = 0; i < string.length(); i++) {
 			Color c = new Color(start[0] + dR * i, start[1] + dG * i, start[2] + dB * i);
 
-			sb.append(net.md_5.bungee.api.ChatColor.of(c) + "" + net.md_5.bungee.api.ChatColor.BOLD + string.charAt(i));
+			sb.append(net.md_5.bungee.api.ChatColor.of(c) + "" + (bold ? ChatColor.BOLD : "")
+					+ (strikethrough ? ChatColor.STRIKETHROUGH : "") + (italic ? ChatColor.ITALIC : "")
+					+ (underline ? ChatColor.UNDERLINE : "") + (magic ? ChatColor.MAGIC : "") + string.charAt(i));
 		}
 		return sb.toString();
 	}
