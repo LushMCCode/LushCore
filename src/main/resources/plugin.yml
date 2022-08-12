@@ -12,3 +12,5 @@ commands:
       usage: /lush
    console:
       usage: /console
+   debug:
+      usage: /debug

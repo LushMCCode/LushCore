@@ -1,14 +1,26 @@
 package net.lushmc.core.commands;
 
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Particle;
+import org.bukkit.Particle.DustOptions;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.entity.Player;
 
 import net.lushmc.core.LushPlugin;
 import net.lushmc.core.commands.listeners.AdminCommandTabCompleter;
 import net.lushmc.core.utils.CoreUtils;
+import net.lushmc.core.utils.DebugUtils;
 import net.lushmc.core.utils.announcements.AnnouncementUtils;
+import net.lushmc.core.utils.particles.ParticleFormatEnum;
+import net.lushmc.core.utils.placeholders.EmoticonType;
+import net.lushmc.core.utils.placeholders.Emoticons;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 
 public class AdminCommands implements CommandExecutor {
 
@@ -72,6 +84,77 @@ public class AdminCommands implements CommandExecutor {
 					}
 				}
 			}
+		}
+		if (cmd.getName().equalsIgnoreCase("debug")) {
+			if (sender instanceof Player) {
+				if (sender.hasPermission("lushmc.debug")) {
+					if (args.length == 0) {
+						if (DebugUtils.isDebugger(((Player) sender).getUniqueId())) {
+							sender.sendMessage(CoreUtils.prefixes("debug") + "Removing you from the Debug Group");
+							DebugUtils.removeDebugger(((Player) sender).getUniqueId());
+							return true;
+						}
+						sender.sendMessage(CoreUtils.prefixes("debug") + "Adding you to the Debug Group");
+						DebugUtils.addDebugger(((Player) sender).getUniqueId());
+						return true;
+
+					}
+
+					if (args.length >= 1) {
+						if (args[0].equalsIgnoreCase("emoticons")) {
+							if (args.length == 1) {
+								for (Emoticons emote : Emoticons.values()) 
+									sender.sendMessage(emote.name() + ": " + emote);
+								
+							}
+							if (args.length == 2) {
+								for (Emoticons emote : Emoticons.values()) {
+									if (EmoticonType.valueOf(args[1].toUpperCase()) != null) {
+										if (emote.getTypes().contains(EmoticonType.valueOf(args[1].toUpperCase()))) {
+											sender.sendMessage(emote.name() + ": " + emote);
+										}
+									} else if (emote.name().contains(args[1].toUpperCase()))
+										sender.sendMessage(emote.name() + ": " + emote);
+								}
+							}
+						}
+						if (args.length == 2) {
+							if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("delete")
+									|| args[0].equalsIgnoreCase("add")) {
+								if (Bukkit.getPlayer(args[1]) == null) {
+									sender.sendMessage(CoreUtils.prefixes("debug") + "That player is not online.");
+									return true;
+								}
+								if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("delete")) {
+									UUID uid = Bukkit.getPlayer(args[1]).getUniqueId();
+									if (DebugUtils.isDebugger(uid)) {
+										DebugUtils.removeDebugger(uid);
+										Bukkit.getPlayer(uid).sendMessage(
+												CoreUtils.prefixes("debug") + "Removing you from the Debug Group");
+									} else
+										sender.sendMessage(
+												CoreUtils.prefixes("debug") + "That player isn't in the Debug Group");
+
+									return true;
+								}
+								if (args[0].equalsIgnoreCase("add")) {
+									UUID uid = Bukkit.getPlayer(args[1]).getUniqueId();
+									if (!DebugUtils.isDebugger(uid)) {
+										DebugUtils.addDebugger(uid);
+										Bukkit.getPlayer(uid).sendMessage(
+												CoreUtils.prefixes("debug") + "Adding you to the Debug Group");
+									} else
+										sender.sendMessage(CoreUtils.prefixes("debug")
+												+ "That player is already in the Debug Group");
+
+									return true;
+								}
+							}
+						}
+					}
+				}
+			}
+			return true;
 		}
 		return true;
 	}
