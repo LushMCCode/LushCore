@@ -15,14 +15,19 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.RegisteredServiceProvider;
+import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitTask;
 import org.json2.JSONArray;
 import org.json2.JSONObject;
@@ -69,6 +74,7 @@ public class CoreUtils {
 	private static int heartbeat_delay = 6;
 	private static BukkitTask heartbeat;
 
+	@SuppressWarnings("deprecation")
 	public static void init(LushPlugin main) {
 		plugin = main;
 		addPrefix("admin", "&c&lAdmin &8" + Emoticons.RIGHT_ARROW + " &7");
@@ -467,6 +473,7 @@ public class CoreUtils {
 		player.sendPluginMessage(getPlugin(), channel, out.toByteArray());
 	}
 
+	@SuppressWarnings("deprecation")
 	public static ItemStack getSkull(String player) {
 		ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
 		SkullMeta meta = (SkullMeta) skull.getItemMeta();
@@ -556,6 +563,73 @@ public class CoreUtils {
 		}
 		i = new ItemStack(Material.valueOf(itemdata.toUpperCase()));
 		return i;
+	}
+
+	@SuppressWarnings("deprecation")
+	public static String encryptItemStack(ItemStack i) {
+		try {
+			return i.getType() + ":" + i.getAmount() + ":" + i.getDurability();
+		} catch (NullPointerException ex) {
+			return "AIR:1:0";
+		}
+
+	}
+
+	@Deprecated
+	public static ItemStack decryptItemStack(String s) {
+		String[] d = s.split(":");
+		ItemStack i = s
+				.contains(":")
+						? (d.length >= 2
+								? (d.length == 2 ? new ItemStack(Material.valueOf(d[0]), 1, Short.parseShort(d[1]))
+										: new ItemStack(Material.valueOf(d[0]), Integer.parseInt(d[1]),
+												Short.parseShort(d[2])))
+								: new ItemStack(Material.valueOf(d[0])))
+						: new ItemStack(Material.valueOf(s));
+		ItemMeta m = i.getItemMeta();
+		String j = "";
+		if (d.length >= 3)
+			for (int f = 3; f != d.length; f++) {
+				j = j == "" ? d[f] : j + ":" + d[f];
+			}
+		JSONObject json = new JSONObject("{}");
+		if (j.contains("{") && j.contains("}")) {
+			json = new JSONObject(j);
+		}
+
+		if (!json.isEmpty()) {
+			if (json.has("PotionMeta")) {
+				PotionMeta meta = (PotionMeta) m;
+				meta.setBasePotionData(new PotionData(PotionType.valueOf(json.getString("PotionMeta"))));
+			}
+		}
+		i.setItemMeta(m);
+		return i;
+
+	}
+
+	public static String encryptLocation(Location loc) {
+		String r = loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":"
+				+ loc.getPitch() + ":" + loc.getYaw();
+		r = r.replaceAll("\\.", ",");
+		r = "location:" + r;
+		return r;
+	}
+
+	public static Location decryptLocation(String s) {
+		if (s.startsWith("location:"))
+			s = s.replaceAll("location:", "");
+
+		if (s.contains(","))
+			s = s.replaceAll(",", ".");
+		String[] args = s.split(":");
+		Location r = new Location(Bukkit.getWorld(args[0]), Double.parseDouble(args[1]), Double.parseDouble(args[2]),
+				Double.parseDouble(args[3]));
+		if (args.length >= 5) {
+			r.setPitch(Float.parseFloat(args[4]));
+			r.setYaw(Float.parseFloat(args[5]));
+		}
+		return r;
 	}
 
 }

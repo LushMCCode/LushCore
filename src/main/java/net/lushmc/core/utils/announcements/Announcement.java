@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.json2.JSONObject;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.lushmc.core.utils.CoreUtils;
-import net.lushmc.core.utils.UID;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -113,7 +111,7 @@ public class Announcement {
 					if (json.has("console")) {
 						sb.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/console "
 								+ AnnouncementUtils.createClickID().toString() + " " + json.getString("console")));
-					} 
+					}
 
 //					Bukkit.broadcastMessage("append 3");
 					builder = builder.append(sb);

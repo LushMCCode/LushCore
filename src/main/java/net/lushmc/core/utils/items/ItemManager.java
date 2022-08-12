@@ -62,6 +62,7 @@ public class ItemManager {
 		return fc;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static CustomItem getCustomItem(String iname) {
 		CustomItem i = new CustomItem(Material.STONE);
 		int amount = 1;

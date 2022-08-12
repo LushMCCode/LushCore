@@ -1,7 +1,6 @@
 package net.lushmc.core.utils.items;
 
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.ItemFlag;
 
 public class EnchantmentWrapper {
 	Enchantment en;
