@@ -3,8 +3,6 @@ package net.lushmc.core.commands;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Particle;
-import org.bukkit.Particle.DustOptions;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,11 +14,8 @@ import net.lushmc.core.commands.listeners.AdminCommandTabCompleter;
 import net.lushmc.core.utils.CoreUtils;
 import net.lushmc.core.utils.DebugUtils;
 import net.lushmc.core.utils.announcements.AnnouncementUtils;
-import net.lushmc.core.utils.particles.ParticleFormatEnum;
 import net.lushmc.core.utils.placeholders.EmoticonType;
 import net.lushmc.core.utils.placeholders.Emoticons;
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ComponentBuilder;
 
 public class AdminCommands implements CommandExecutor {
 
