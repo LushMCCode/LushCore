@@ -108,7 +108,7 @@ public class CosmeticUtils {
 								 * ".override") ? ((new Date().getTime() - started) / (0.4)) / 10 : ((new
 								 * Date().getTime() - started) / (cooldown)) / 10) :
 								 */ ((new Date().getTime() - started) / (cooldown)) / 10;
-			if (Bukkit.getPlayer(uid) == null || percent >= 100 || cooldown == 0) {
+			if (Bukkit.getPlayer(uid) == null || percent >= 100 || cooldown == -1) {
 				removeGenericCooldown(uid, name);
 				bar.setProgress(0);
 				bar.removeAll();
