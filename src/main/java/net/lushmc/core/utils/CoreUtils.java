@@ -76,7 +76,7 @@ public class CoreUtils {
 
 	@SuppressWarnings("deprecation")
 	public static void init(LushPlugin main) {
-		main.getLogger().log(Level.ALL, "Setting plugin");
+		main.getLogger().log(Level.INFO, "Setting plugin");
 		plugin = main;
 		log("Setting prefix");
 		addPrefix("admin", "&c&lAdmin &8" + Emoticons.RIGHT_ARROW + " &7");
@@ -136,7 +136,7 @@ public class CoreUtils {
 	}
 
 	public static void log(String log) {
-		log(Level.CONFIG, log);
+		log(Level.INFO, log);
 	}
 
 	public static void log(Level level, String log) {
