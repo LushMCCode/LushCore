@@ -76,7 +76,7 @@ public class CoreUtils {
 
 	@SuppressWarnings("deprecation")
 	public static void init(LushPlugin main) {
-		log("Setting plugin");
+		main.getLogger().log(Level.ALL, "Setting plugin");
 		plugin = main;
 		log("Setting prefix");
 		addPrefix("admin", "&c&lAdmin &8" + Emoticons.RIGHT_ARROW + " &7");
