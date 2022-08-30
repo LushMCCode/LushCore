@@ -76,17 +76,21 @@ public class CoreUtils {
 
 	@SuppressWarnings("deprecation")
 	public static void init(LushPlugin main) {
+		Bukkit.broadcastMessage("Setting plugin");
 		plugin = main;
+		Bukkit.broadcastMessage("Setting prefix");
 		addPrefix("admin", "&c&lAdmin &8" + Emoticons.RIGHT_ARROW + " &7");
-
+		Bukkit.broadcastMessage("Init Announcements");
 		AnnouncementUtils.init();
-
+		Bukkit.broadcastMessage("Start Levels");
 		LevelUtils.start();
+		Bukkit.broadcastMessage("Register Placeholders");
 		PlaceholderAPI.registerExpansion(new LushPlaceholderExpansion());
-
+		Bukkit.broadcastMessage("Read Config");
 		readConfig();
+		Bukkit.broadcastMessage("Set GuiFolder");
 		guiFolder = new File(plugin.getDataFolder().getPath() + "/guis");
-
+		Bukkit.broadcastMessage("Deps shit");
 		deps.clear();
 		deps.put("vault-econ", setupEconomy());
 		deps.put("vault-chat", setupChat());
@@ -95,11 +99,11 @@ public class CoreUtils {
 
 		for (Entry<String, Boolean> e : deps.entrySet())
 			log("Dependency check (" + e.getKey() + "): " + e.getValue());
-
+		Bukkit.broadcastMessage("Init ItemManager");
 		ItemManager.init();
-
+		Bukkit.broadcastMessage("Register GUIs");
 		registerGuis();
-
+		Bukkit.broadcastMessage("Start Heartbeat");
 		heartbeat = Bukkit.getScheduler().runTaskLater(getPlugin(), new Heartbeat(heartbeat_delay), 1);
 	}
 
