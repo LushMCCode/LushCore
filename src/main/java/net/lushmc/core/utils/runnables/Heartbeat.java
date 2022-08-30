@@ -23,17 +23,17 @@ public class Heartbeat implements Runnable {
 	@Override
 	public void run() {
 
-		if (new Date().getTime() - lastAnnouncement >= TimeUnit.MILLISECONDS.convert(delay, TimeUnit.MINUTES)) {
-			lastAnnouncement = new Date().getTime();
-			Announcement a = (Announcement) AnnouncementUtils.getAnnouncements().values().toArray()[new Random()
-					.nextInt(AnnouncementUtils.getAnnouncements().size())];
-			while (!a.isEnabled())
-				a = (Announcement) AnnouncementUtils.getAnnouncements().values().toArray()[new Random()
-						.nextInt(AnnouncementUtils.getAnnouncements().size())];
-			for (Player player : Bukkit.getOnlinePlayers()) {
-				a.announce(player);
-			}
-		}
+//		if (new Date().getTime() - lastAnnouncement >= TimeUnit.MILLISECONDS.convert(delay, TimeUnit.MINUTES)) {
+//			lastAnnouncement = new Date().getTime();
+//			Announcement a = (Announcement) AnnouncementUtils.getAnnouncements().values().toArray()[new Random()
+//					.nextInt(AnnouncementUtils.getAnnouncements().size())];
+//			while (!a.isEnabled())
+//				a = (Announcement) AnnouncementUtils.getAnnouncements().values().toArray()[new Random()
+//						.nextInt(AnnouncementUtils.getAnnouncements().size())];
+//			for (Player player : Bukkit.getOnlinePlayers()) {
+//				a.announce(player);
+//			}
+//		}
 
 		if (CoreUtils.getPlugin().isEnabled())
 			Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), this, 1);
