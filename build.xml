@@ -55,6 +55,7 @@
 		<exec dir="./target" executable="sh">
 			<arg line="-c 'jar -cvf comb.jar -C prepare .'" />
 		</exec>
+		<copy file="target/${project.projectname}.jar" tofile="${project.downloadlocation}/${project.projectname}.jar" overwrite="true" />
 		<copy file="target/comb.jar" tofile="target/${project.projectname}.jar" overwrite="true" />
 	</target>
 
