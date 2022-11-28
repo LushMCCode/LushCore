@@ -32,23 +32,15 @@ public class AdminCommands implements CommandExecutor {
 		if (cmd.getName().equalsIgnoreCase("update")) {
 			String plugin = args.length == 0 ? "lush-core" : args[0];
 			String status = args.length > 2 ? "official" : args[1];
+			String format = plugin + "(" + status + ")";
 
-			if (status.equalsIgnoreCase("official"))
-				status = "";
-			else
-				status = "_" + status;
-
-			String filename = plugin + status + ".jar";
-			String url = "https://downloads.quickscythe.com/plugins/" + filename + "" + filename;
-
-			sender.sendMessage(CoreUtils.prefixes("admin") + "Downloading " + filename + "...");
-
-			if (CoreUtils.downloadFile(url, "plugins/" + filename, "QuickScythe", "r6Pt#BF#Lg73@s4t"))
+			sender.sendMessage(CoreUtils.prefixes("admin") + "Updating " + format + "...");
+			if (CoreUtils.updatePlugin(plugin, status))
 				sender.sendMessage(
-						CoreUtils.prefixes("admin") + CoreUtils.colorize("Finished downloading " + filename));
+						CoreUtils.prefixes("admin") + CoreUtils.colorize("Finished updating " + format + "."));
 			else
 				sender.sendMessage(CoreUtils.prefixes("admin")
-						+ CoreUtils.colorize("There was an error downloading " + filename + "."));
+						+ CoreUtils.colorize("There was an error downloading " + format + "."));
 		}
 
 		if (cmd.getName().equalsIgnoreCase("lush")) {

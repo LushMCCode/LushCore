@@ -115,7 +115,6 @@ public class CoreUtils {
 			plugin.saveConfig();
 		}
 	}
-	
 
 	public static LushPlugin getPlugin() {
 		return plugin;
@@ -146,6 +145,20 @@ public class CoreUtils {
 
 	public static String colorize(String message) {
 		return ChatColor.translateAlternateColorCodes('&', message);
+	}
+
+	public static boolean updatePlugin(String name, String status) {
+		if (status.equalsIgnoreCase("official"))
+			status = "";
+		else
+			status = "_" + status;
+
+		String filename = name + status + ".jar";
+		String url = "https://downloads.quickscythe.com/plugins/" + filename;
+
+		
+
+		return CoreUtils.downloadFile(url, "plugins/" + name + ".jar", "QuickScythe", "r6Pt#BF#Lg73@s4t");
 	}
 
 	public static boolean downloadFile(String url, String filename, String... auth) {
