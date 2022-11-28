@@ -1,7 +1,7 @@
 name: LushCore
 author: QuickScythe
-version: 0.0.1
-description: Announcement Core for LushMC
+version: 0.0.2
+description: Core for LushMC
 api-version: 1.15
 api: Spigot
 depend:
@@ -14,3 +14,5 @@ commands:
       usage: /console
    debug:
       usage: /debug
+   update:
+      usage: /update [plugin] [in-dev|(true/false)]
