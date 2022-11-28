@@ -115,6 +115,7 @@ public class CoreUtils {
 			plugin.saveConfig();
 		}
 	}
+	
 
 	public static LushPlugin getPlugin() {
 		return plugin;
