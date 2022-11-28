@@ -17,14 +17,14 @@
 		<echo message="Git message: ${git.message}" />
 		<echo message="Install: ${git.install}" />
 	</target>
- 
+
 	<target name="compile" depends="prepareCompile" if="${git.install}">
 		<echo message="Running Install" />
 		<exec dir="." executable="sh">
 			<arg line="-c 'mvn clean install'" />
 		</exec>
 	</target>
- 
+
 	<target name="testCompile" depends="prepareCompile" unless="${git.install}">
 		<echo message="Running Test Install" />
 		<exec dir="." executable="sh">
@@ -47,10 +47,10 @@
 			<arg line="-c 'mkdir prepare'" />
 		</exec>
 		<exec dir="./target" executable="sh">
-			<arg line="-c 'cd prepare; unzip -u ../${project.projectname}.jar'" />
+			<arg line="-c 'cd prepare; unzip -uo ../${project.projectname}-tests.jar'" />
 		</exec>
 		<exec dir="./target" executable="sh">
-			<arg line="-c 'cd prepare; unzip -uo ../${project.projectname}-tests.jar'" />
+			<arg line="-c 'cd prepare; unzip -u ../${project.projectname}.jar'" />
 		</exec>
 		<exec dir="./target" executable="sh">
 			<arg line="-c 'jar -cvf comb.jar -C prepare .'" />
