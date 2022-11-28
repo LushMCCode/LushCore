@@ -17,7 +17,7 @@
 		<echo message="Git message: ${git.message}" />
 		<echo message="Install: ${git.install}" />
 	</target>
-
+ 
 	<target name="compile" depends="prepareCompile" if="${git.install}">
 		<echo message="Running Install" />
 		<exec dir="." executable="sh">
