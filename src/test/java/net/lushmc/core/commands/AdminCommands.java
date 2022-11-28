@@ -31,7 +31,7 @@ public class AdminCommands implements CommandExecutor {
 
 		if (cmd.getName().equalsIgnoreCase("update")) {
 			String plugin = args.length == 0 ? "lush-core" : args[0];
-			String status = args.length > 2 ? "official" : args[1];
+			String status = args.length < 2 ? "official" : args[1];
 			String format = plugin + "(" + status + ")";
 
 			sender.sendMessage(CoreUtils.prefixes("admin") + "Updating " + format + "...");
