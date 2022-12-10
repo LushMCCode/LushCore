@@ -1,4 +1,3 @@
-package net.lushmc.core.utils;
 
 
 import java.io.FileOutputStream;

@@ -1,5 +1,6 @@
 package net.lushmc.core.commands;
 
+import java.io.File;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -8,6 +9,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.util.FileUtil;
 
 import net.lushmc.core.LushPlugin;
 import net.lushmc.core.commands.listeners.AdminCommandTabCompleter;
@@ -28,6 +31,21 @@ public class AdminCommands implements CommandExecutor {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+
+		if (cmd.getName().equalsIgnoreCase("update")) {
+			String plugin = args.length == 0 ? "lush-core" : args[0];
+			String status = args.length < 2 ? "official" : args[1];
+			String format = plugin + "(" + status + ")";
+
+			sender.sendMessage(CoreUtils.prefixes("admin") + "Updating " + format + "...");
+			if (CoreUtils.updatePlugin(plugin, status))
+				sender.sendMessage(
+						CoreUtils.prefixes("admin") + CoreUtils.colorize("Finished updating " + format + "."));
+			else
+				sender.sendMessage(CoreUtils.prefixes("admin")
+						+ CoreUtils.colorize("There was an error downloading " + format + "."));
+		}
+
 		if (cmd.getName().equalsIgnoreCase("lush")) {
 			if (!sender.hasPermission("lush.admin")) {
 				sender.sendMessage(
@@ -57,27 +75,21 @@ public class AdminCommands implements CommandExecutor {
 					}
 				}
 			}
-			if (args[0].equalsIgnoreCase("update")) {
-				String plugin = args.length == 1 ? "LushCore" : args[1];
-				String filename = plugin + ".jar";
-				String url = "https://ci.quickscythe.com/job/" + plugin + "/lastSuccessfulBuild/artifact/target/"
-						+ filename;
-				sender.sendMessage(CoreUtils.prefixes("admin") + "Downloading " + filename + "...");
-				if (CoreUtils.downloadFile(url, "plugins/" + filename, "QuickScythe", "r6Pt#BF#Lg73@s4t"))
-					sender.sendMessage(
-							CoreUtils.prefixes("admin") + CoreUtils.colorize("Finished downloading " + filename));
-				else {
-					sender.sendMessage(CoreUtils.prefixes("admin") + CoreUtils
-							.colorize("There was an error downloading " + filename + ". Trying alt site..."));
-					if (CoreUtils.downloadFile("https://downloads.mysticcloud.net/" + filename, "plugins/" + filename,
-							"admin", "v4pob8LW"))
-						sender.sendMessage(
-								CoreUtils.prefixes("admin") + CoreUtils.colorize("Finished downloading " + filename));
-					else {
-						sender.sendMessage(CoreUtils.prefixes("admin") + CoreUtils
-								.colorize("There was an error downloading " + filename + ". Trying alt site..."));
-					}
+			if (args[0].equals("pull")) {
+				// `/lush pull lush_guis <indev>
+				if (args.length < 2) {
+					sender.sendMessage(CoreUtils
+							.colorize(CoreUtils.prefixes("admin") + "Usage: /lush pull <plugin>"/* " [status] */));
+					return true;
 				}
+				Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin(args[1]);
+				String status = args.length == 3 ? args[2] : "indev";
+				File other = new File(plugin.getDataFolder().getParentFile() + "/" + plugin.getName() + "_" + status);
+				for (File file : other.listFiles())
+					FileUtil.copy(file, new File(plugin.getDataFolder() + "/" + file.getName()));
+				sender.sendMessage(
+						CoreUtils.prefixes("admin") + "Data pull complete. Please reload/restart all systems.");
+
 			}
 		}
 		if (cmd.getName().equalsIgnoreCase("debug")) {
@@ -98,9 +110,9 @@ public class AdminCommands implements CommandExecutor {
 					if (args.length >= 1) {
 						if (args[0].equalsIgnoreCase("emoticons")) {
 							if (args.length == 1) {
-								for (Emoticons emote : Emoticons.values()) 
+								for (Emoticons emote : Emoticons.values())
 									sender.sendMessage(emote.name() + ": " + emote);
-								
+
 							}
 							if (args.length == 2) {
 								for (Emoticons emote : Emoticons.values()) {
