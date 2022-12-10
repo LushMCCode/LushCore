@@ -1,7 +1,9 @@
 package net.lushmc.core.utils.items;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -9,9 +11,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import net.lushmc.core.utils.CoreUtils;
-import net.lushmc.core.utils.PlayerSkull;
+import net.lushmc.core.utils.UID;
 
 public class CustomItem {
 	private Material type;
@@ -21,7 +24,8 @@ public class CustomItem {
 	private List<EnchantmentWrapper> enchantments = new ArrayList<>();
 	private List<String> lore = new ArrayList<>();
 	private List<ItemFlag> itemFlags = new ArrayList<>();
-	private PlayerSkull skull = null;
+	private Map<String, Metadata> metadata = new HashMap<>();
+	private int custommodeldata = -1;
 
 	private CustomItem(CustomItem clone) {
 		this.type = clone.type;
@@ -31,14 +35,11 @@ public class CustomItem {
 		this.enchantments = clone.enchantments;
 		this.lore = clone.lore;
 		this.itemFlags = clone.itemFlags;
+		this.custommodeldata = custommodeldata;
 	}
 
 	public CustomItem(Material type) {
 		this.type = type;
-	}
-
-	public CustomItem(PlayerSkull skull) {
-		this.skull = skull;
 	}
 
 	public void setType(Material type) {
@@ -47,6 +48,10 @@ public class CustomItem {
 
 	public void setAmount(int amount) {
 		this.amount = amount;
+	}
+
+	public void setCustomModelData(int cmd) {
+		this.custommodeldata = cmd;
 	}
 
 	@Override
@@ -95,7 +100,7 @@ public class CustomItem {
 		List<String> lore = new ArrayList<>();
 		for (String s : this.lore)
 			lore.add(CoreUtils.setPlaceholders(player, s));
-		ItemStack item = skull == null ? new ItemStack(type) : skull.getSkull();
+		ItemStack item = new ItemStack(type);
 		item.setAmount(amount);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(CoreUtils.setPlaceholders(player, dname));
@@ -109,8 +114,14 @@ public class CustomItem {
 			for (ItemFlag flag : itemFlags)
 				meta.addItemFlags(flag);
 
+		if (custommodeldata != -1)
+			meta.setCustomModelData(custommodeldata);
 		item.setItemMeta(meta);
 		return item;
+	}
+
+	public void setMetadata(JavaPlugin plugin, String string, UID uid) {
+		metadata.put(string, new Metadata(plugin, uid));
 	}
 
 }
