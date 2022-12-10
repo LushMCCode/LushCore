@@ -68,18 +68,16 @@ public class CoreUtils {
 	public static void init(LushPlugin main) {
 		main.getLogger().log(Level.INFO, "Setting plugin");
 		plugin = main;
-		log("Setting prefix");
+		log("Initializing managers...");
 		addPrefix("admin", "&c&lAdmin &8" + Emoticons.RIGHT_ARROW + " &7");
-		log("Init Announcements");
 		AnnouncementUtils.init();
-		log("Start Levels");
 		LevelUtils.start();
-		log("Register Placeholders");
+		ItemManager.init();
+		log("Register placeholders");
 		PlaceholderAPI.registerExpansion(new LushPlaceholderExpansion());
-		log("Read Config");
+		log("Reading config...");
 		readConfig();
-		log("Set GuiFolder");
-		log("Deps shit");
+		log("Registering dependencies...");
 		deps.clear();
 		deps.put("vault-econ", setupEconomy());
 		deps.put("vault-chat", setupChat());
@@ -88,10 +86,10 @@ public class CoreUtils {
 
 		for (Entry<String, Boolean> e : deps.entrySet())
 			log("Dependency check (" + e.getKey() + "): " + e.getValue());
-		log("Init ItemManager");
-		ItemManager.init();
-		log("Start Heartbeat");
+
+		log("Start heartbeat");
 		heartbeat = Bukkit.getScheduler().runTaskLater(getPlugin(), new Heartbeat(heartbeat_delay), 1);
+		log("Tune radio");
 		addRadio(new CoreRadio(plugin));
 	}
 
