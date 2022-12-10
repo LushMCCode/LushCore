@@ -33,6 +33,7 @@ import com.google.common.io.ByteStreams;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.lushmc.core.LushPlugin;
+import net.lushmc.core.utils.Radio;
 import net.lushmc.core.utils.announcements.AnnouncementUtils;
 import net.lushmc.core.utils.items.ItemManager;
 import net.lushmc.core.utils.levels.LevelUtils;
@@ -59,6 +60,9 @@ public class CoreUtils {
 	private static Map<String, String> prefixes = new HashMap<>();
 	private static int heartbeat_delay = 6;
 	private static BukkitTask heartbeat;
+
+	// subject to change
+	private static Map<String, Radio> radios = new HashMap<>();
 
 	@SuppressWarnings("deprecation")
 	public static void init(LushPlugin main) {
@@ -88,6 +92,7 @@ public class CoreUtils {
 		ItemManager.init();
 		log("Start Heartbeat");
 		heartbeat = Bukkit.getScheduler().runTaskLater(getPlugin(), new Heartbeat(heartbeat_delay), 1);
+		addRadio(new CoreRadio(plugin));
 	}
 
 	private static void readConfig() {
@@ -378,6 +383,18 @@ public class CoreUtils {
 			r.setYaw(Float.parseFloat(args[5]));
 		}
 		return r;
+	}
+
+	public static void addRadio(Radio radio) {
+		radios.put(radio.getName(), radio);
+	}
+
+	public static Radio getRadio(String name) {
+		return radios.containsKey(name) ? radios.get(name) : null;
+	}
+
+	public static Map<String, Radio> getRadios() {
+		return radios;
 	}
 
 }
