@@ -32,7 +32,7 @@ public class AdminCommandTabCompleter implements TabCompleter {
 
 		for (Plugin plugin : Bukkit.getPluginManager().getPlugins())
 			if (plugin.getDescription().getAuthors().contains("QuickScythe"))
-				usc.add(plugin.getName());
+				usc.add(plugin.getName().replaceAll("_indev", ""));
 		cmds.put("update", usc);
 
 		List<String> pssc = new ArrayList<>();
