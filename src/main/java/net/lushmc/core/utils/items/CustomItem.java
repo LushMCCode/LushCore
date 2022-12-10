@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import net.lushmc.core.utils.CoreUtils;
+import net.lushmc.core.utils.PlayerSkull;
 
 public class CustomItem {
 	private Material type;
@@ -20,6 +21,7 @@ public class CustomItem {
 	private List<EnchantmentWrapper> enchantments = new ArrayList<>();
 	private List<String> lore = new ArrayList<>();
 	private List<ItemFlag> itemFlags = new ArrayList<>();
+	private PlayerSkull skull = null;
 
 	private CustomItem(CustomItem clone) {
 		this.type = clone.type;
@@ -33,6 +35,10 @@ public class CustomItem {
 
 	public CustomItem(Material type) {
 		this.type = type;
+	}
+
+	public CustomItem(PlayerSkull skull) {
+		this.skull = skull;
 	}
 
 	public void setType(Material type) {
@@ -89,7 +95,7 @@ public class CustomItem {
 		List<String> lore = new ArrayList<>();
 		for (String s : this.lore)
 			lore.add(CoreUtils.setPlaceholders(player, s));
-		ItemStack item = new ItemStack(type);
+		ItemStack item = skull == null ? new ItemStack(type) : skull.getSkull();
 		item.setAmount(amount);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(CoreUtils.setPlaceholders(player, dname));

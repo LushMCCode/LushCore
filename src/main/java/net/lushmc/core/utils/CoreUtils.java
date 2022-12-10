@@ -284,15 +284,6 @@ public class CoreUtils {
 		player.sendPluginMessage(getPlugin(), channel, out.toByteArray());
 	}
 
-	@SuppressWarnings("deprecation")
-	public static ItemStack getSkull(String player) {
-		ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
-		SkullMeta meta = (SkullMeta) skull.getItemMeta();
-		meta.setOwner(player);
-		skull.setItemMeta(meta);
-		return skull;
-	}
-
 	public static String setPlaceholders(Player player, String string) {
 		string = string.replaceAll("%player%", player.getName());
 		if (dependencyEnabled("mp"))
@@ -308,7 +299,7 @@ public class CoreUtils {
 			return i;
 		}
 		if (itemdata.startsWith("PlayerSkull:")) {
-			i = getSkull(itemdata.split(":")[1]);
+			i = new PlayerSkull(itemdata.split(":")[1]).getSkull();
 			return i;
 		}
 		i = new ItemStack(Material.valueOf(itemdata.toUpperCase()));
