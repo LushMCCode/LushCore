@@ -1,4 +1,4 @@
-package net.lushmc.core.utils;
+package net.lushmc.core.utils.admin;
 
 import java.security.SecureRandom;
 import java.util.Objects;

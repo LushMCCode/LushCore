@@ -20,7 +20,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.potion.PotionData;
@@ -35,10 +34,16 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import net.lushmc.core.LushPlugin;
 import net.lushmc.core.utils.announcements.AnnouncementUtils;
 import net.lushmc.core.utils.items.ItemManager;
+import net.lushmc.core.utils.items.PlayerSkull;
 import net.lushmc.core.utils.levels.LevelUtils;
 import net.lushmc.core.utils.placeholders.Emoticons;
 import net.lushmc.core.utils.placeholders.LushPlaceholderExpansion;
+import net.lushmc.core.utils.radio.CoreRadio;
+import net.lushmc.core.utils.radio.Radio;
 import net.lushmc.core.utils.runnables.Heartbeat;
+import net.lushmc.core.utils.sql.IDatabase;
+import net.lushmc.core.utils.sql.SQLDriver;
+import net.lushmc.core.utils.sql.SQLUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
@@ -90,6 +95,10 @@ public class CoreUtils {
 		heartbeat = Bukkit.getScheduler().runTaskLater(getPlugin(), new Heartbeat(heartbeat_delay), 1);
 		log("Tune radio");
 		addRadio(new CoreRadio(plugin));
+
+		log("Registering Databases...");
+		SQLUtils.createDatabase("core", new IDatabase(SQLDriver.MYSQL, "sql.lushmc.net", "s9_lush_core", 3306,
+				"u9_DXRcEVCsUy", "^EJknUmp8jH68GXwGRI7K!FU"));
 	}
 
 	private static void readConfig() {

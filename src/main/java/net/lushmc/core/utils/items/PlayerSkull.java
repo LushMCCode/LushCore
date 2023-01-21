@@ -1,4 +1,4 @@
-package net.lushmc.core.utils;
+package net.lushmc.core.utils.items;
 
 import java.lang.reflect.Field;
 import java.util.UUID;

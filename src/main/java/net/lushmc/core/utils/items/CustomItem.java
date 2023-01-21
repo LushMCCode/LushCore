@@ -14,7 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.lushmc.core.utils.CoreUtils;
-import net.lushmc.core.utils.UID;
+import net.lushmc.core.utils.admin.UID;
 
 public class CustomItem {
 	private Material type;

@@ -1,4 +1,4 @@
-package net.lushmc.core.utils;
+package net.lushmc.core.utils.radio;
 
 
 import org.bukkit.plugin.java.JavaPlugin;

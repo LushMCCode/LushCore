@@ -1,4 +1,4 @@
-package net.lushmc.core.utils;
+package net.lushmc.core.utils.admin;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +12,8 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
+
+import net.lushmc.core.utils.CoreUtils;
 
 public class CosmeticUtils {
 

@@ -12,7 +12,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import net.lushmc.core.utils.CoreUtils;
-import net.lushmc.core.utils.UID;
+import net.lushmc.core.utils.admin.UID;
 
 public class AnnouncementUtils {
 

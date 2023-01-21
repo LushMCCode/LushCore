@@ -1,4 +1,4 @@
-package net.lushmc.core.utils;
+package net.lushmc.core.utils.admin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,8 @@ import java.util.UUID;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
+
+import net.lushmc.core.utils.CoreUtils;
 
 public class DebugUtils {
 

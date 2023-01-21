@@ -15,7 +15,7 @@ import org.bukkit.util.FileUtil;
 import net.lushmc.core.LushPlugin;
 import net.lushmc.core.commands.listeners.AdminCommandTabCompleter;
 import net.lushmc.core.utils.CoreUtils;
-import net.lushmc.core.utils.DebugUtils;
+import net.lushmc.core.utils.admin.DebugUtils;
 import net.lushmc.core.utils.announcements.AnnouncementUtils;
 import net.lushmc.core.utils.placeholders.EmoticonType;
 import net.lushmc.core.utils.placeholders.Emoticons;

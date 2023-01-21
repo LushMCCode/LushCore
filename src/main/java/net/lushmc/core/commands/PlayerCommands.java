@@ -11,7 +11,7 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import net.lushmc.core.LushPlugin;
 import net.lushmc.core.commands.listeners.PlayerCommandTabCompleter;
 import net.lushmc.core.utils.CoreUtils;
-import net.lushmc.core.utils.UID;
+import net.lushmc.core.utils.admin.UID;
 import net.lushmc.core.utils.announcements.AnnouncementUtils;
 
 public class PlayerCommands implements CommandExecutor {
