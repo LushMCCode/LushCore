@@ -33,6 +33,7 @@ public class LushPlayer {
 	}
 
 	private void registerNewPlayer(UUID uid) {
+		data.put("uuid", uid.toString());
 		PlayerManager.registerPlayer(uid, this);
 	}
 
