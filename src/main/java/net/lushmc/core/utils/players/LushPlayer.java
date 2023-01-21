@@ -30,8 +30,8 @@ public class LushPlayer {
 	public void save() {
 		if (SQLUtils.getDatabase("core").update("UPDATE player_data SET data='" + data.toString() + "' WHERE uuid='"
 				+ data.getString("uuid") + "';") == 0) {
-			SQLUtils.getDatabase("core").input("INSERT INTO player_data(uuid, data) VALUES ('" + data.getString("uuid")
-					+ "', data=" + data.toString() + ");");
+			SQLUtils.getDatabase("core").input("INSERT INTO player_data(uuid, data) VALUES (\"" + data.getString("uuid")
+					+ "\", data=\"" + data.toString() + "\");");
 		}
 	}
 
