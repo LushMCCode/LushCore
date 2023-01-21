@@ -28,8 +28,11 @@ public class LushPlayer {
 	}
 
 	public void save() {
-		Bukkit.broadcastMessage("" + SQLUtils.getDatabase("core").update(
-				"UPDATE player_data SET data='" + data.toString() + "' WHERE uuid='" + data.getString("uuid") + "';"));
+		if (SQLUtils.getDatabase("core").update("UPDATE player_data SET data='" + data.toString() + "' WHERE uuid='"
+				+ data.getString("uuid") + "';") == 0) {
+			SQLUtils.getDatabase("core").input("INSERT INTO player_data(uuid, data) VALUES ('" + data.getString("uuid")
+					+ "', data=" + data.toString() + ");");
+		}
 	}
 
 	private void registerNewPlayer(UUID uid) {
