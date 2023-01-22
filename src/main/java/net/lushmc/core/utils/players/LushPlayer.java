@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.bukkit.Bukkit;
 import org.json2.JSONException;
 import org.json2.JSONObject;
@@ -32,10 +33,10 @@ public class LushPlayer {
 				"UPDATE player_data SET data='" + data.toString() + "' WHERE uuid='" + data.getString("uuid") + "';");
 		Bukkit.broadcastMessage("Result: " + r);
 		if (r < 1) {
-			Bukkit.broadcastMessage("INSERT INTO player_data(uuid, data) VALUES (\"" + data.getString("uuid")
-					+ "\", data=\"" + data.toString() + "\");");
-			Bukkit.broadcastMessage(SQLUtils.getDatabase("core").input("INSERT INTO player_data(uuid, data) VALUES (\""
-					+ data.getString("uuid") + "\", data=\"" + data.toString() + "\");") + "");
+			String i = "INSERT INTO player_data(uuid, data) VALUES (\"" + data.getString("uuid") + "\", data=\""
+					+ StringEscapeUtils.escapeJava(data.toString()) + "\");";
+			Bukkit.broadcastMessage(i);
+			Bukkit.broadcastMessage(SQLUtils.getDatabase("core").input(i) + "");
 		}
 	}
 
