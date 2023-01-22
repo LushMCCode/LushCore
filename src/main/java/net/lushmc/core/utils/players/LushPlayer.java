@@ -22,6 +22,7 @@ public class LushPlayer {
 		ResultSet rs = SQLUtils.getDatabase("core").query("SELECT * FROM player_data WHERE uuid='" + uid + "';");
 		if (rs != null) {
 			while (rs.next()) {
+				Bukkit.broadcastMessage("Loaded from SQL");
 				data.put("uuid", uid);
 				data.put("data", new JSONObject(rs.getString("data")));
 			}
@@ -33,6 +34,7 @@ public class LushPlayer {
 
 	public void save() {
 
+		Bukkit.broadcastMessage("Saving data to SQL");
 		// Package the data
 
 		data.put("lastUsername", Bukkit.getOfflinePlayer(UUID.fromString(data.getString("uuid"))).getName());
@@ -64,6 +66,7 @@ public class LushPlayer {
 	}
 
 	private void registerNewPlayer(UUID uid) {
+		Bukkit.broadcastMessage("Registered new player");
 		data.put("uuid", uid.toString());
 		PlayerManager.registerPlayer(uid, this);
 	}
