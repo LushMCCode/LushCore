@@ -24,7 +24,7 @@ public class LushPlayer {
 			while (rs.next()) {
 				Bukkit.broadcastMessage("Loaded from SQL");
 				data.put("uuid", uid);
-				data.put("data", new JSONObject(rs.getString("data")));
+				data = new JSONObject(rs.getString("data"));
 			}
 		}
 		if (!data.has("uuid")) {
