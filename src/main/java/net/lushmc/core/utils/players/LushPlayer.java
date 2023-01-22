@@ -33,6 +33,8 @@ public class LushPlayer {
 
 	public void save() {
 
+		// Package the data
+
 		data.put("lastUsername", Bukkit.getOfflinePlayer(UUID.fromString(data.getString("uuid"))).getName());
 		if (!data.has("usernames")) {
 			JSONArray array = new JSONArray();
@@ -45,8 +47,11 @@ public class LushPlayer {
 				data.getJSONArray("usernames").put(data.get("lastUsername"));
 		}
 
-		if (SQLUtils.getDatabase("core").update("UPDATE player_data SET data='" + data.toString() + "' WHERE uuid='"
-				+ data.getString("uuid") + "';") < 1) {
+		// Send the data
+
+		if (SQLUtils.getDatabase("core")
+				.update("UPDATE player_data SET data=\"" + CoreUtils.mysqlEscapeString(data.toString())
+						+ "\" WHERE uuid=\"" + data.getString("uuid") + "\";") < 1) {
 			try {
 				Bukkit.broadcastMessage(SQLUtils.getDatabase("core")
 						.input("INSERT INTO player_data(uuid, data) VALUES (\"" + data.getString("uuid") + "\", \""
