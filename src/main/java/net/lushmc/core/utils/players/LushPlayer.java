@@ -2,9 +2,12 @@ package net.lushmc.core.utils.players;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.json2.JSONArray;
 import org.json2.JSONException;
 import org.json2.JSONObject;
 
@@ -29,17 +32,26 @@ public class LushPlayer {
 	}
 
 	public void save() {
-		int r = SQLUtils.getDatabase("core").update(
-				"UPDATE player_data SET data='" + data.toString() + "' WHERE uuid='" + data.getString("uuid") + "';");
-		Bukkit.broadcastMessage("Result: " + r);
-		if (r < 1) {
-			String i;
-			try {
-				i = "INSERT INTO player_data(uuid, data) VALUES (\"" + data.getString("uuid") + "\", \""
-						+ CoreUtils.mysqlEscapeString(data.toString()) + "\");";
 
-				Bukkit.broadcastMessage(i);
-				Bukkit.broadcastMessage(SQLUtils.getDatabase("core").input(i) + "");
+		data.put("lastUsername", Bukkit.getOfflinePlayer(UUID.fromString(data.getString("uuid"))).getName());
+		if (!data.has("usernames")) {
+			JSONArray array = new JSONArray();
+			array.put(data.get("lastUsername"));
+		} else {
+			List<String> names = new ArrayList<>();
+			for (Object o : data.getJSONArray("usernames"))
+				names.add((String) o);
+			if (!names.contains(data.getString("lastUsername")))
+				data.getJSONArray("usernames").put(data.get("lastUsername"));
+		}
+
+		if (SQLUtils.getDatabase("core").update("UPDATE player_data SET data='" + data.toString() + "' WHERE uuid='"
+				+ data.getString("uuid") + "';") < 1) {
+			try {
+				Bukkit.broadcastMessage(SQLUtils.getDatabase("core")
+						.input("INSERT INTO player_data(uuid, data) VALUES (\"" + data.getString("uuid") + "\", \""
+								+ CoreUtils.mysqlEscapeString(data.toString()) + "\");")
+						+ "");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
