@@ -32,8 +32,10 @@ public class LushPlayer {
 				"UPDATE player_data SET data='" + data.toString() + "' WHERE uuid='" + data.getString("uuid") + "';");
 		Bukkit.broadcastMessage("Result: " + r);
 		if (r == 0) {
-			SQLUtils.getDatabase("core").input("INSERT INTO player_data(uuid, data) VALUES (\"" + data.getString("uuid")
+			Bukkit.broadcastMessage("INSERT INTO player_data(uuid, data) VALUES (\"" + data.getString("uuid")
 					+ "\", data=\"" + data.toString() + "\");");
+			Bukkit.broadcastMessage(SQLUtils.getDatabase("core").input("INSERT INTO player_data(uuid, data) VALUES (\""
+					+ data.getString("uuid") + "\", data=\"" + data.toString() + "\");") + "");
 		}
 	}
 
