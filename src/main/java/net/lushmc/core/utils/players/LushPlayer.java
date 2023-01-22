@@ -35,7 +35,7 @@ public class LushPlayer {
 		if (r < 1) {
 			String i;
 			try {
-				i = "INSERT INTO player_data(uuid, data) VALUES (\"" + data.getString("uuid") + "\", data=\""
+				i = "INSERT INTO player_data(uuid, data) VALUES (\"" + data.getString("uuid") + "\", \""
 						+ CoreUtils.mysqlEscapeString(data.toString()) + "\");";
 
 				Bukkit.broadcastMessage(i);
