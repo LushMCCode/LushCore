@@ -41,6 +41,7 @@ public class LushPlayer {
 		if (!data.has("usernames")) {
 			JSONArray array = new JSONArray();
 			array.put(data.get("lastUsername"));
+			data.put("usernames", array);
 		} else {
 			List<String> names = new ArrayList<>();
 			for (Object o : data.getJSONArray("usernames"))
